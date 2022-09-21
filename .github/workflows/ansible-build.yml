@@ -1,0 +1,52 @@
+---
+name: ansible-build
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+env:
+  REGISTRY: ghcr.io
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build docker image
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - id: changed-files
+        uses: tj-actions/changed-files@v29
+      - name: check if files changed
+        run: |
+          for file in \
+            ${{ steps.changed-files.outputs.all_changed_files }};
+            do
+            exit 0;
+          done
+        with:
+          files: |
+            requirements.txt
+            scripts/*.sh
+            Dockerfile
+      - uses: hadolint/hadolint-action@v2.0.0
+        with:
+          dockerfile: Dockerfile
+      - uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}-ansible
+      - uses: docker/build-push-action@v3
+        with:
+          context: api
+          push: true
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: Dockerfile

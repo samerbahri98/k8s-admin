@@ -1,0 +1,15 @@
+---
+repos:
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.10.0
+    hooks:
+      - id: hadolint-docker
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.17.0
+    hooks:
+      - id: yamllint
+        args: [-c=.yamllint]
+  - repo: https://github.com/ansible-community/ansible-lint.git
+    rev: v6.6.1
+    hooks:
+      - id: ansible-lint
