@@ -7,7 +7,5 @@ ENV LC_ALL en_US.UTF-8
 ENV TZ="Europe/Budapest"
 
 WORKDIR /ansible
-RUN mkdir scripts
-COPY scripts/install_ansible_in_docker.sh ./scripts
-COPY requirements.txt .
-RUN sh scripts/install_ansible_in_docker.sh
+COPY . .
+RUN sh scripts/install_ansible_in_docker.sh && rm -rf ./*

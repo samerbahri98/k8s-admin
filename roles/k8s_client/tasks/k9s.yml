@@ -1,0 +1,24 @@
+---
+- name: DOWNLOAD | K9S
+  ansible.builtin.get_url:
+    url:
+      "https://github.com/derailed/k9s/releases/download/\
+      {{ k9s_version }}/k9s_Linux_x86_64.tar.gz"
+    dest: /tmp/k9s.tar.gz
+    owner: root
+    group: root
+    mode: 0755
+
+- name: UNTAR | K9S
+  ansible.builtin.unarchive:
+    src: /tmp/k9s.tar.gz
+    remote_src: true
+    dest: /usr/local/bin
+    owner: root
+    group: root
+    mode: 0755
+
+- name: DELETE | K9S INSTALLATION
+  ansible.builtin.file:
+    path: /tmp/k9s.tar.gz
+    state: absent
