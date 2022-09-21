@@ -1,5 +1,5 @@
+ansible
+ansible-runner
+ansible-vault
 kubernetes
 pre-commit
-ansible
-ansible-vault
-ansible-runner
