@@ -44,7 +44,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ github.repository }}-ansible
       - uses: docker/build-push-action@v3
         with:
-          context: api
+          context: .
           push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
