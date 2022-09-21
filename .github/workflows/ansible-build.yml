@@ -18,6 +18,11 @@ jobs:
           fetch-depth: 0
       - id: changed-files
         uses: tj-actions/changed-files@v29
+        with:
+          files: |
+            requirements.txt
+            scripts/*.sh
+            Dockerfile
       - name: check if files changed
         run: |
           for file in \
@@ -25,11 +30,6 @@ jobs:
             do
             exit 0;
           done
-        with:
-          files: |
-            requirements.txt
-            scripts/*.sh
-            Dockerfile
       - uses: hadolint/hadolint-action@v2.0.0
         with:
           dockerfile: Dockerfile
