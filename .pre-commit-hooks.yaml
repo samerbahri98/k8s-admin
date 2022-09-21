@@ -1,6 +1,0 @@
----
-- id: prepare
-  name: prepare precommit env
-  description: install hadolint
-  entry: ./scripts/prepare_precommit_env.sh
-  language: script
