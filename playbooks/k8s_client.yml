@@ -1,5 +1,5 @@
 ---
 - name: K8S CLIENT
-  hosts: local
+  hosts: localhost
   roles:
     - k8s_client
