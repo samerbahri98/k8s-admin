@@ -6,7 +6,7 @@
     chart_version: v1.9.1
     release_namespace: cert-manager
     create_namespace: true
-    values: "{{ lookup('file','cert-manager.values.yml') | from_yaml }}"
+    values: "{{ lookup('file', 'cert-manager.values.yml') | from_yaml }}"
 - name: HELM | INSTALL VULTR-WEBHOOK
   kubernetes.core.helm:
     name: cert-manager-vultr-webhook

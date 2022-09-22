@@ -6,4 +6,4 @@
     chart_version: 4.2.5
     release_namespace: ingress-nginx
     create_namespace: true
-    values: "{{ lookup('file','values.yml') | from_yaml }}"
+    values: "{{ lookup('file', 'values.yml') | from_yaml }}"

@@ -1,3 +1,4 @@
+---
 mock_modules:
   - kubernetes.core.helm
   - kubernetes.core.helm_info
