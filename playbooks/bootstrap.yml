@@ -1,0 +1,3 @@
+---
+- import_playbook: ./nginx_ingress_controller/present.yml
+- import_playbook: ./cert_manager/present.yml

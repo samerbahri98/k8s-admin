@@ -26,7 +26,7 @@
       metadata:
         name: vultr-credentials
       data:
-        apiKey: "{{ apiKey }}"
+        apiKey: "{{ api_key }}"
       type: Opaque
 
 - name: CERT-MANAGER | ClusterIssuer
@@ -51,7 +51,7 @@
                   solverName: vultr
                   config:
                     apiKeySecretRef:
-                      key: apiKey
+                      key: api_key
                       name: "{{ vultr_api_secret.result.metadata.name }}"
 - name: CERT-MANAGER | ROLE
   kubernetes.core.k8s:

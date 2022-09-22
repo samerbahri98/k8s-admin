@@ -2,6 +2,6 @@
 - name: ENSURE NGINX INGRESS CONTOLLER IS PRESENT
   hosts: localhost
   roles:
-    - nginx-ingress-controller
+    - nginx_ingress_controller
   vars:
-    state: absent
+    state: present

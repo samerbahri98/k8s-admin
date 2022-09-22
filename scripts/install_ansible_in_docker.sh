@@ -12,4 +12,4 @@ apt install -y --no-install-recommends locales build-essential python3.10 python
 
 pip3 install --no-cache-dir -r requirements.txt
 
-ansible-runner run /ansible -p playbooks/k8s_client.yml 
+ansible-runner run /ansible -p playbooks/misc/k8s_client.yml 

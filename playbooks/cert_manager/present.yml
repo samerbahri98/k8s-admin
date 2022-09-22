@@ -2,6 +2,6 @@
 - name: ENSURE CERT MANAGER CONTOLLER IS PRESENT
   hosts: localhost
   roles:
-    - cert-manager
+    - cert_manager
   vars:
     state: present
