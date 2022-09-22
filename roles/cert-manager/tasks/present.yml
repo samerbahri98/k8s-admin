@@ -1,0 +1,88 @@
+---
+- name: HELM | INSTALL CERT-MANAGER
+  kubernetes.core.helm:
+    name: cert-manager
+    chart_ref: jetstack/cert-manager
+    chart_version: v1.9.1
+    release_namespace: cert-manager
+    create_namespace: true
+    values: "{{ lookup('file','cert-manager.values.yml') | from_yaml }}"
+- name: HELM | INSTALL VULTR-WEBHOOK
+  kubernetes.core.helm:
+    name: cert-manager-vultr-webhook
+    chart_ref: vultr/cert-manager-webhook-vultr
+    chart_version: 1.0.0
+    release_namespace: cert-manager
+    create_namespace: true
+- name: CERT-MANAGER | Vultr API KEY
+  register: vultr_api_secret
+  kubernetes.core.k8s:
+    state: present
+    namespace: cert-manager
+    append_hash: true
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: vultr-credentials
+      data:
+        apiKey: "{{ apiKey }}"
+      type: Opaque
+
+- name: CERT-MANAGER | ClusterIssuer
+  kubernetes.core.k8s:
+    state: present
+    namespace: cert-manager
+    definition:
+      apiVersion: cert-manager.io/v1
+      kind: ClusterIssuer
+      metadata:
+        name: letsencrypt-prod
+      spec:
+        acme:
+          email: samer.bahri@thebahrimedia.com
+          server: https://acme-v02.api.letsencrypt.org/directory
+          privateKeySecretRef:
+            name: letsencrypt-prod
+          solvers:
+            - dns01:
+                webhook:
+                  groupName: acme.vultr.com
+                  solverName: vultr
+                  config:
+                    apiKeySecretRef:
+                      key: apiKey
+                      name: "{{ vultr_api_secret.result.metadata.name }}"
+- name: CERT-MANAGER | ROLE
+  kubernetes.core.k8s:
+    state: present
+    namespace: cert-manager
+    definition:
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      metadata:
+        name: cert-manager-webhook-vultr:secret-reader
+        namespace: cert-manager
+      rules:
+        - apiGroups: [""]
+          resources: ["secrets"]
+          resourceNames: ["{{ vultr_api_secret.result.metadata.name }}"]
+          verbs: ["get", "watch"]
+- name: CERT-MANAGER | ROLE BINDING
+  kubernetes.core.k8s:
+    state: present
+    namespace: cert-manager
+    definition:
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: cert-manager-webhook-vultr:secret-reader
+        namespace: cert-manager
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: cert-manager-webhook-vultr:secret-reader
+      subjects:
+        - apiGroup: ""
+          kind: ServiceAccount
+          name: cert-manager-webhook-vultr
