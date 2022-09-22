@@ -1,0 +1,23 @@
+mock_modules:
+  - kubernetes.core.helm
+  - kubernetes.core.helm_info
+  - kubernetes.core.helm_plugin
+  - kubernetes.core.helm_plugin_info
+  - kubernetes.core.helm_repository
+  - kubernetes.core.helm_template
+  - kubernetes.core.k8s
+  - kubernetes.core.k8s_cluster_info
+  - kubernetes.core.k8s_cp
+  - kubernetes.core.k8s_drain
+  - kubernetes.core.k8s_exec
+  - kubernetes.core.k8s_info
+  - kubernetes.core.k8s_json_patch
+  - kubernetes.core.k8s_log
+  - kubernetes.core.k8s_rollback
+  - kubernetes.core.k8s_scale
+  - kubernetes.core.k8s_service
+  - kubernetes.core.k8s_taint
+  - kubernetes.core.kubectl
+  - kubernetes.core.k8s
+  - kubernetes.core.k8s
+  - kubernetes.core.kustomize
