@@ -7,11 +7,11 @@ repos:
       - id: sort-simple-yaml
       - id: detect-private-key
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.17.0
+    rev: v1.28.0
     hooks:
       - id: yamllint
         args: [-c=.yamllint]
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v6.6.1
+    rev: v6.7.0
     hooks:
       - id: ansible-lint
