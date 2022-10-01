@@ -2,6 +2,10 @@ ansible
 ansible-runner
 ansible-vault
 boto3
+docker
 kubernetes
+mysqlclient
 pre-commit
+psycopg2
 pykeepass
+PyMySQL
