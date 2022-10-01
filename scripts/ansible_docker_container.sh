@@ -3,4 +3,5 @@ docker run --rm -it\
     -v $PWD:/ansible \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e KUBECONFIG=/ansible/.kube/config \
+    --privileged \
     ghcr.io/samerbahri98/k8s-admin-ansible:main /bin/bash

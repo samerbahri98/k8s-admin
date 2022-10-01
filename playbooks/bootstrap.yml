@@ -1,5 +1,5 @@
 ---
-- name: nginx ingress controller
+- name: Nginx ingress controller
   import_playbook: ./nginx_ingress_controller/present.yml
-- name: cert-manager
+- name: Cert-manager
   import_playbook: ./cert_manager/present.yml

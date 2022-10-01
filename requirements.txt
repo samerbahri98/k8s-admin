@@ -1,5 +1,7 @@
 ansible
 ansible-runner
 ansible-vault
+boto3
 kubernetes
 pre-commit
+pykeepass
