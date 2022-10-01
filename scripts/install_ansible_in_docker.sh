@@ -8,7 +8,7 @@ rm -rf /var/lib/apt/lists/*
 
 apt update
 
-apt install -y --no-install-recommends locales build-essential python3.10 python3-pip ssh
+apt install -y --no-install-recommends locales build-essential python3.10 python3-pip ssh mysql-client libmysqlclient-dev libpq-dev python3-dev
 
 pip3 install --no-cache-dir -r requirements.txt
 
