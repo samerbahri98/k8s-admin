@@ -12,6 +12,6 @@ apt install -y --no-install-recommends locales build-essential python3.10 python
 
 pip3 install --no-cache-dir -r requirements.txt
 
-ansible-galaxy install -r requirements.yml -p /usr/local/lib/python3.10/dist-packages/ansible_collection
+ansible-galaxy install -r requirements.yml
 
 ansible-runner run /ansible -p playbooks/misc/k8s_client.yml
