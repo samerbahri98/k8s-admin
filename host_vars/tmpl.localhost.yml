@@ -2,7 +2,8 @@
 api_key: <your vultr api key>
 keycloak_admin_username: admin
 keycloak_admin_password: <your keycloak password>
-keepass_password: <your keepass password>
+keepass_psw: <your keepass password>
+keepass_dbx: <your keepass db>
 s3_keepass_key_id: <your s3 key id>
 s3_keepass_key_name: <your s3 key name>
 s3_keepass_key_secret: <your s3 key secret>

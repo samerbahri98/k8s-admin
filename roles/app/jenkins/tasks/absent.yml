@@ -1,0 +1,6 @@
+---
+- name: HELM | UNINSTALL JENKINS
+  kubernetes.core.helm:
+    name: jenkins
+    release_namespace: devops
+    state: absent

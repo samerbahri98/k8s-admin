@@ -1,0 +1,9 @@
+---
+- name: uninstall jenkins
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - app/jenkins
+  vars:
+    state: absent

@@ -1,3 +1,4 @@
 .kube/config
 .keepass/k8s.kdbx
 artifacts
+host_vars/localhost.yml

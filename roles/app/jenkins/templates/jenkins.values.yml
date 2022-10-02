@@ -1,0 +1,191 @@
+---
+clusterZone: "cluster.local"
+
+renderHelmLabels: true
+
+controller:
+  componentName: "jenkins-controller"
+  image: "jenkins/jenkins"
+  tagLabel: lts
+  imagePullPolicy: "Always"
+  adminUser: |
+    {{ lookup('viczem.keepass.keepass','Jenkins/ROOT','username') }}
+  adminPassword: |
+    {{ lookup('viczem.keepass.keepass','Jenkins/ROOT','password') }}
+
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "256Mi"
+    limits:
+      cpu: "2000m"
+      memory: "1024Mi"
+
+  serviceType: ClusterIP
+  agentListenerEnabled: true
+  agentListenerPort: 50000
+  agentListenerHostPort:
+  agentListenerNodePort:
+  agentListenerExternalTrafficPolicy:
+  agentListenerLoadBalancerSourceRanges:
+    - 0.0.0.0/0
+  disabledAgentProtocols:
+    - JNLP-connect
+    - JNLP2-connect
+  csrf:
+    defaultCrumbIssuer:
+      enabled: true
+      proxyCompatability: true
+  agentListenerServiceType: "ClusterIP"
+  installPlugins:
+    - kubernetes:3706.vdfb_d599579f3
+    - workflow-aggregator:590.v6a_d052e5a_a_b_5
+    - git:4.11.5
+    - configuration-as-code:1512.vb_79d418d5fc8
+    - cloudbees-folder:6.758.vfd75d09eea_a_1
+    - antisamy-markup-formatter:2.7
+    - build-timeout:1.24
+    - credentials-binding:523.vd859a_4b_122e6
+    - timestamper:1.20
+    - ws-cleanup:0.43
+    - ant:481.v7b_09e538fcca
+    - workflow-aggregator:590.v6a_d052e5a_a_b_5
+    - github-branch-source:1695.v88de84e9f6b_9
+    - pipeline-github-lib:38.v445716ea_edda_
+    - pipeline-stage-view:2.24
+    - ssh-slaves:2.846.v1b_70190624f5
+    - matrix-auth:3.1.5
+    - pam-auth:1.10
+    - ansible:1.1
+    - ansible-tower:0.16.0
+    - docker-plugin:1.2.10
+    - docker-commons:1.21
+    - docker-java-api:3.2.13-37.vf3411c9828b9
+
+  installLatestPlugins: true
+  installLatestSpecifiedPlugins: false
+  overwritePluginsFromImage: true
+
+  cloudName: "kubernetes"
+
+  ingress:
+    enabled: true
+    paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: jenkins
+            port:
+              number: 8080
+
+    apiVersion: "extensions/v1beta1"
+    labels: {}
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/issuer: letsencrypt-prod
+    hostName: jenkins.k8s.samerbahri.tk
+    # resourceRootUrl: jenkins.k8s.samerbahri.tk
+    tls:
+      - hosts:
+          - "*.k8s.samerbahri.tk"
+        secretName: wildcard-k8s-samerbahri-tk-tls
+
+  # Expose Prometheus metrics
+  prometheus:
+    # If enabled, add the prometheus plugin to the list of plugins to install
+    # https://plugins.jenkins.io/prometheus
+    enabled: false
+    # Additional labels to add to the ServiceMonitor object
+    serviceMonitorAdditionalLabels: {}
+    # Set a custom namespace where to deploy ServiceMonitor resource
+    # serviceMonitorNamespace: monitoring
+    scrapeInterval: 60s
+    # This is the default endpoint used by the prometheus plugin
+    scrapeEndpoint: /prometheus
+    # Additional labels to add to the PrometheusRule object
+    alertingRulesAdditionalLabels: {}
+    # An array of prometheus alerting rules
+    # The `groups` root object is added by default, simply add the rule entries
+    alertingrules: []
+    # Set a custom namespace where to deploy PrometheusRule resource
+    prometheusRuleNamespace: ""
+
+  httpsKeyStore:
+    jenkinsHttpsJksSecretName: ''
+    enable: false
+    httpPort: 8081
+    path: "/var/jenkins_keystore"
+    fileName: "keystore.jks"
+    password: |
+      {{ lookup('viczem.keepass.keepass','Jenkins/ROOT','password') }}
+    jenkinsKeyStoreBase64Encoded: |
+        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
+
+agent:
+  enabled: false
+
+persistence:
+  enabled: true
+  existingClaim:
+  storageClass: openebs-hostpath
+  annotations: {}
+  labels: {}
+  accessMode: "ReadWriteOnce"
+  size: "5Gi"
+  volumes:
+  mounts:
+  #  - mountPath: /var/nothing
+  #    name: nothing
+  #    readOnly: true
+
+## Install Default RBAC roles and bindings
+rbac:
+  create: true
+  readSecrets: false
+
+serviceAccount:
+  create: true
+  # The name of the service account is autogenerated by default
+  name:
+  annotations: {}
+  imagePullSecretName:

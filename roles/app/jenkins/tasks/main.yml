@@ -1,0 +1,8 @@
+---
+- name: HELM REPOSITORY | IMPORT JENKINS
+  kubernetes.core.helm_repository:
+    name: jenkins
+    repo_url: https://charts.jenkins.io
+
+- name: JENKINS | STATE
+  import_tasks: "{{ state }}.yml"

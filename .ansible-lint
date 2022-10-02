@@ -22,3 +22,6 @@ mock_modules:
   - kubernetes.core.k8s
   - kubernetes.core.k8s
   - kubernetes.core.kustomize
+  - viczem.keepass.keepass
+skip_list:
+  - jinja[invalid]

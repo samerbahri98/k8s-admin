@@ -1,0 +1,5 @@
+---
+- name: K8S CLIENT
+  hosts: localhost
+  roles:
+    - misc/jenkins_agent
