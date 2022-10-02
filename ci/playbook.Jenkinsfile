@@ -19,8 +19,8 @@ pipeline {
         stage('playbook'){
             steps{
                 ansiblePlaybook(
-                    playbook: '${params.PLAYBOOK}'
-                    inventory: '${params.INVENTORY}'
+                    playbook: '${params.PLAYBOOK}',
+                    inventory: '${params.INVENTORY}',
                     credentialsId: 'GitHub-SSH',
                     vaultCredentialsId: 'ansible-vault'
                 )
