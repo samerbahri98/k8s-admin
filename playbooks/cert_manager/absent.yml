@@ -1,0 +1,7 @@
+---
+- name: ENSURE CERT MANAGER CONTOLLER IS ABSENT
+  hosts: localhost
+  roles:
+    - cert_manager
+  vars:
+    state: absent

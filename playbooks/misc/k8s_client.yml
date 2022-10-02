@@ -2,4 +2,4 @@
 - name: K8S CLIENT
   hosts: localhost
   roles:
-    - k8s_client
+    - misc/k8s_client
