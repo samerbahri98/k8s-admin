@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'ansible'}
+    agent {label 'jenkins-ansible'}
     parameters {
         string(name:'INVENTORY',defaultValue:'inventory.k8s.yml')
         string(name:'PLAYBOOK',defaultValue:'playbooks/misc/keepass_pull.yml')
