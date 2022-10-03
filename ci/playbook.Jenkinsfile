@@ -22,6 +22,9 @@ pipeline {
         stage('checkout'){
             steps {
                 container('ansible'){
+                    sh '''
+                    echo "begin"
+                    '''
                     checkout scm
                     ansiblePlaybook(
                         playbook: 'playbooks/misc/keepass_pull.yml',
@@ -35,6 +38,9 @@ pipeline {
                         credentialsId: 'GitHub-SSH',
                         vaultCredentialsId: 'ansible-vault'
                     )
+                    sh '''
+                    echo "end"
+                    '''
                 }
             }
         }
