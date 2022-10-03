@@ -9,6 +9,6 @@
     state: present
     db_name: keycloak
     db_host:
-      "{{ lookup('viczem.keepass.keepass','POSTGRES/ROOT','url') }}"
+      "{{ lookup('viczem.keepass.keepass','Postgres/ROOT','url') }}"
     db_password:
-      "{{ lookup('viczem.keepass.keepass','POSTGRES/Keycloak','password') }}"
+      "{{ lookup('viczem.keepass.keepass','Postgres/Keycloak','password') }}"
