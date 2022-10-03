@@ -40,7 +40,7 @@ pipeline {
                         playbook: '${params.PLAYBOOK}',
                         inventory: '${params.INVENTORY}',
                         credentialsId: 'GitHub-SSH',
-                        vaultCredentialsId: 'ansible-vault'.
+                        vaultCredentialsId: 'ansible-vault',
                         extraVars: [
                             keepass_dbx: [value: '/ansible/.keepass/k8s.kdbx',hidden: true],
                             s3_keepass_endpoint: [value: 'https://s3.us-west-004.backblazeb2.com',hidden: true],
