@@ -5,8 +5,10 @@
   gather_facts: false
   roles:
     - resource/postgres/db
+    - app/keycloak
   vars:
     state: present
+    namespace: adminer
     db_name: keycloak
     db_host:
       "{{ lookup('viczem.keepass.keepass','Postgres/ROOT','url') }}"
