@@ -17,7 +17,7 @@ pipeline {
             steps {
                 container('ansible'){
                     sh '''
-                    ln -s host_vars/localhost.yml $HOST_VAR
+                    ln -s $HOST_VAR host_vars/localhost.yml 
                     '''
                     checkout scm
                     ansiblePlaybook(
