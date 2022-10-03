@@ -107,7 +107,7 @@ extraVolumeMounts: []
 initContainers: []
 sidecars: []
 service:
-  type: clusterIP
+  type: ClusterIP
   http:
     enabled: true
   ports:
