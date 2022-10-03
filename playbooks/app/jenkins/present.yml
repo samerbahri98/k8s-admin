@@ -8,3 +8,4 @@
   vars:
     state: present
     namespace: adminer
+    db_host: pxc-db-haproxy.percona.svc.cluster.local
