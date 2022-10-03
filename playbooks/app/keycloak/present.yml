@@ -1,0 +1,12 @@
+---
+- name: MySQL | ENSURE PRESENT
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - resource/mysql/db
+  vars:
+    state: present
+    db_name: keycloak
+    db_password: |
+      {{ lookup('viczem.keepass.keepass','MySQL/Keycloak','password') }}

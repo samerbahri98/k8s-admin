@@ -1,0 +1,40 @@
+---
+- name: MySQL | CREATE DB
+  community.mysql.mysql_db:
+    name: "{{ db_name }}"
+    state: "{{ state }}"
+
+    login_host: |
+      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOTExternal', 'url') }}
+
+    login_password: |
+      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}
+    login_user: |
+      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'username') }}"
+  when:
+    - state == 'present'
+- name: MySQL | USER
+  community.mysql.mysql_user:
+    login_host: |
+      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'url') }}
+    login_password: |
+      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}
+    login_user: |
+      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'username') }}
+    password: "{{ db_password }}"
+    name: "{{ db_name }}"
+    state: "{{ state }}"
+    priv:
+      "{{ db_name }}.*": 'ALL, GRANT'
+- name: MySQL | DELETE DB
+  community.mysql.mysql_db:
+    name: "{{ db_name }}"
+    state: "{{ state }}"
+    login_host: |
+      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'url') }}
+    login_password: |
+      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}
+    login_user: |
+      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'username') }}"
+  when:
+    - state == 'absent'
