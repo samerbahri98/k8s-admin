@@ -3,12 +3,12 @@
   community.postgresql.postgresql_db:
     name: "{{ db_name }}"
     state: "{{ state }}"
-    login_host: |
-      {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'url') }}
-    login_password: |
-      {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'password') }}
-    login_user: |
-      {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'username') }}"
+    login_host:
+      "{{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'url') }}"
+    login_password:
+      "{{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'password') }}"
+    login_user:
+      "{{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'username') }}"
 - name: POSTGRES | USER
   community.postgresql.postgresql_user:
     login_host:
