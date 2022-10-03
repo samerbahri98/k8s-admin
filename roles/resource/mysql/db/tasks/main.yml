@@ -4,8 +4,7 @@
     name: "{{ db_name }}"
     state: "{{ state }}"
 
-    login_host: |
-      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOTExternal', 'url') }}
+    login_host: "{{ db_host }}"
 
     login_password: |
       {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}
@@ -15,8 +14,7 @@
     - state == 'present'
 - name: MySQL | USER
   community.mysql.mysql_user:
-    login_host: |
-      {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'url') }}
+    login_host: "{{ db_host }}"
     login_password: |
       {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}
     login_user: |
@@ -30,7 +28,7 @@
   community.mysql.mysql_db:
     name: "{{ db_name }}"
     state: "{{ state }}"
-    login_host: " {{ db_host }} "
+    login_host: "{{ db_host }}"
     login_password: |
       {{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}
     login_user: |
