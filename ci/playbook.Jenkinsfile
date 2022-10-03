@@ -6,6 +6,7 @@ pipeline {
     }
     environment {
         KUBECONFIG=credentials('kubeconfig-admin')
+        HOST_VAR=credentials('localhost.yml')
     }
     parameters {
         string(name:'INVENTORY',defaultValue:'inventory.k8s.yml')
@@ -16,8 +17,7 @@ pipeline {
             steps {
                 container('ansible'){
                     sh '''
-                    echo "begin"
-                    ls -la
+                    ln -s host_vars/localhost.yml $HOST_VAR
                     '''
                     checkout scm
                     ansiblePlaybook(
@@ -26,30 +26,13 @@ pipeline {
                         credentialsId: 'GitHub-SSH',
                         vaultCredentialsId: 'ansible-vault',
                         colorized: true,
-                        extraVars: [
-                            keepass_dbx: [value: '/ansible/.keepass/k8s.kdbx',hidden: true],
-                            s3_keepass_endpoint: [value: 'https://s3.us-west-004.backblazeb2.com',hidden: true],
-                            api_key: [value: credentials('vultr_api_key'),hidden: true],
-                            s3_keepass_key_id: [value: credentials('s3_keepass_key_id'),hidden: true],
-                            s3_keepass_key_name: [value: credentials('s3_keepass_key_name'),hidden: true],
-                            s3_keepass_key_secret: [value: credentials('s3_keepass_key_secret'),hidden: true],
-                            keepass_psw: [value: credentials('keepass_psw'),hidden: true]
-                        ]
                     )
                     ansiblePlaybook(
                         playbook: '${params.PLAYBOOK}',
                         inventory: '${params.INVENTORY}',
                         credentialsId: 'GitHub-SSH',
                         vaultCredentialsId: 'ansible-vault',
-                        extraVars: [
-                            keepass_dbx: [value: '/ansible/.keepass/k8s.kdbx',hidden: true],
-                            s3_keepass_endpoint: [value: 'https://s3.us-west-004.backblazeb2.com',hidden: true],
-                            api_key: [value: credentials('vultr_api_key'),hidden: true],
-                            s3_keepass_key_id: [value: credentials('s3_keepass_key_id'),hidden: true],
-                            s3_keepass_key_name: [value: credentials('s3_keepass_key_name'),hidden: true],
-                            s3_keepass_key_secret: [value: credentials('s3_keepass_key_secret'),hidden: true],
-                            keepass_psw: [value: credentials('keepass_psw'),hidden: true]
-                        ]
+                        colorized: true,
                     )
                     sh '''
                     echo "end"
