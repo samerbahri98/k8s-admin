@@ -6,13 +6,6 @@ pipeline {
     }
     environment {
         KUBECONFIG=credentials('kubeconfig-admin')
-        keepass_dbx='/ansible/.keepass/k8s.kdbx'
-        api_key=credentials('vultr_api_key')
-        keepass_psw=credentials('keepass_psw')
-        s3_keepass_key_id=credentials('s3_keepass_key_id')
-        s3_keepass_key_name=credentials('s3_keepass_key_name')
-        s3_keepass_key_secret=credentials('s3_keepass_key_secret')
-        s3_keepass_endpoint='https://s3.us-west-004.backblazeb2.com'
     }
     parameters {
         string(name:'INVENTORY',defaultValue:'inventory.k8s.yml')
@@ -31,13 +24,87 @@ pipeline {
                         playbook: 'playbooks/misc/keepass_pull.yml',
                         inventory: 'inventory.k8s.yml', 
                         credentialsId: 'GitHub-SSH',
-                        vaultCredentialsId: 'ansible-vault'
+                        vaultCredentialsId: 'ansible-vault',
+                        extraVars: [
+                            (
+                                key: 'keepass_dbx',
+                                value: '/ansible/.keepass/k8s.kdbx'
+                                hidden: true
+                            ),
+                            (
+                                key: 's3_keepass_endpoint',
+                                value: 'ttps://s3.us-west-004.backblazeb2.com'
+                                hidden: true
+                            ),
+                            (
+                                key: 'api_key',
+                                value: credentials('vultr_api_key')
+                                hidden: true
+                            ),
+                            (
+                                key: 'keepass_psw',
+                                value: credentials('keepass_psw')
+                                hidden: true
+                            ),
+                            (
+                                key: 's3_keepass_key_id',
+                                value: credentials('s3_keepass_key_id')
+                                hidden: true
+                            ),
+                            (
+                                key: 's3_keepass_key_name',
+                                value: credentials('s3_keepass_key_name')
+                                hidden: true
+                            ),
+                            (
+                                key: 's3_keepass_key_secret',
+                                value: credentials('s3_keepass_key_secret')
+                                hidden: true
+                            )
+                        ]
                     )
                     ansiblePlaybook(
                         playbook: '${params.PLAYBOOK}',
                         inventory: '${params.INVENTORY}',
                         credentialsId: 'GitHub-SSH',
-                        vaultCredentialsId: 'ansible-vault'
+                        vaultCredentialsId: 'ansible-vault'.
+                        extraVars: [
+                            (
+                                key: 'keepass_dbx',
+                                value: '/ansible/.keepass/k8s.kdbx'
+                                hidden: true
+                            ),
+                            (
+                                key: 's3_keepass_endpoint',
+                                value: 'ttps://s3.us-west-004.backblazeb2.com'
+                                hidden: true
+                            ),
+                            (
+                                key: 'api_key',
+                                value: credentials('vultr_api_key')
+                                hidden: true
+                            ),
+                            (
+                                key: 'keepass_psw',
+                                value: credentials('keepass_psw')
+                                hidden: true
+                            ),
+                            (
+                                key: 's3_keepass_key_id',
+                                value: credentials('s3_keepass_key_id')
+                                hidden: true
+                            ),
+                            (
+                                key: 's3_keepass_key_name',
+                                value: credentials('s3_keepass_key_name')
+                                hidden: true
+                            ),
+                            (
+                                key: 's3_keepass_key_secret',
+                                value: credentials('s3_keepass_key_secret')
+                                hidden: true
+                            )
+                        ]
                     )
                     sh '''
                     echo "end"
