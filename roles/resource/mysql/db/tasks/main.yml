@@ -8,8 +8,6 @@
       "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
     login_user:
       "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'username') }}"
-  when:
-    - state == 'present'
 - name: MySQL | USER
   community.mysql.mysql_user:
     login_host: "{{ db_host }}"
@@ -19,17 +17,7 @@
       "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'username') }}"
     password: "{{ db_password }}"
     name: "{{ db_name }}"
+    host_all: true
     state: "{{ state }}"
     priv:
       "{{ db_name }}.*:ALL"
-- name: MySQL | DELETE DB
-  community.mysql.mysql_db:
-    name: "{{ db_name }}"
-    state: "{{ state }}"
-    login_host: "{{ db_host }}"
-    login_password:
-      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
-    login_user:
-      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'username') }}"
-  when:
-    - state == 'absent'
