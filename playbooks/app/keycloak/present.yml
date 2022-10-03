@@ -8,6 +8,7 @@
   vars:
     state: present
     db_name: keycloak
-    db_host: pxc-db-haproxy.percona.svc.cluster.local
+    db_host:
+      "{{ lookup('viczem.keepass.keepass','MySQL/ROOT','url') }}"
     db_password:
       "{{ lookup('viczem.keepass.keepass','MySQL/Keycloak','password') }}"
