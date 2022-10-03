@@ -24,6 +24,7 @@ pipeline {
                 container('ansible'){
                     sh '''
                     echo "begin"
+                    ls -la
                     '''
                     checkout scm
                     ansiblePlaybook(

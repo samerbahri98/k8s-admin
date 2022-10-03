@@ -6,7 +6,3 @@ spec:
       alwaysPullImage: true
       privileged: true
       ttyEnabled: true
-      command:
-        - tail
-        - -f
-        - /dev/null
