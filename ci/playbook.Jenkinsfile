@@ -25,42 +25,15 @@ pipeline {
                         inventory: 'inventory.k8s.yml', 
                         credentialsId: 'GitHub-SSH',
                         vaultCredentialsId: 'ansible-vault',
+                        colorized: true,
                         extraVars: [
-                            (
-                                key: 'keepass_dbx',
-                                value: '/ansible/.keepass/k8s.kdbx'
-                                hidden: true
-                            ),
-                            (
-                                key: 's3_keepass_endpoint',
-                                value: 'ttps://s3.us-west-004.backblazeb2.com'
-                                hidden: true
-                            ),
-                            (
-                                key: 'api_key',
-                                value: credentials('vultr_api_key')
-                                hidden: true
-                            ),
-                            (
-                                key: 'keepass_psw',
-                                value: credentials('keepass_psw')
-                                hidden: true
-                            ),
-                            (
-                                key: 's3_keepass_key_id',
-                                value: credentials('s3_keepass_key_id')
-                                hidden: true
-                            ),
-                            (
-                                key: 's3_keepass_key_name',
-                                value: credentials('s3_keepass_key_name')
-                                hidden: true
-                            ),
-                            (
-                                key: 's3_keepass_key_secret',
-                                value: credentials('s3_keepass_key_secret')
-                                hidden: true
-                            )
+                            keepass_dbx: [value: '/ansible/.keepass/k8s.kdbx',hidden: true],
+                            s3_keepass_endpoint: [value: 'https://s3.us-west-004.backblazeb2.com',hidden: true],
+                            api_key: [value: credentials('vultr_api_key'),hidden: true],
+                            s3_keepass_key_id: [value: credentials('s3_keepass_key_id'),hidden: true],
+                            s3_keepass_key_name: [value: credentials('s3_keepass_key_name'),hidden: true],
+                            s3_keepass_key_secret: [value: credentials('s3_keepass_key_secret'),hidden: true],
+                            keepass_psw: [value: credentials('keepass_psw'),hidden: true]
                         ]
                     )
                     ansiblePlaybook(
@@ -69,41 +42,13 @@ pipeline {
                         credentialsId: 'GitHub-SSH',
                         vaultCredentialsId: 'ansible-vault'.
                         extraVars: [
-                            (
-                                key: 'keepass_dbx',
-                                value: '/ansible/.keepass/k8s.kdbx'
-                                hidden: true
-                            ),
-                            (
-                                key: 's3_keepass_endpoint',
-                                value: 'ttps://s3.us-west-004.backblazeb2.com'
-                                hidden: true
-                            ),
-                            (
-                                key: 'api_key',
-                                value: credentials('vultr_api_key')
-                                hidden: true
-                            ),
-                            (
-                                key: 'keepass_psw',
-                                value: credentials('keepass_psw')
-                                hidden: true
-                            ),
-                            (
-                                key: 's3_keepass_key_id',
-                                value: credentials('s3_keepass_key_id')
-                                hidden: true
-                            ),
-                            (
-                                key: 's3_keepass_key_name',
-                                value: credentials('s3_keepass_key_name')
-                                hidden: true
-                            ),
-                            (
-                                key: 's3_keepass_key_secret',
-                                value: credentials('s3_keepass_key_secret')
-                                hidden: true
-                            )
+                            keepass_dbx: [value: '/ansible/.keepass/k8s.kdbx',hidden: true],
+                            s3_keepass_endpoint: [value: 'https://s3.us-west-004.backblazeb2.com',hidden: true],
+                            api_key: [value: credentials('vultr_api_key'),hidden: true],
+                            s3_keepass_key_id: [value: credentials('s3_keepass_key_id'),hidden: true],
+                            s3_keepass_key_name: [value: credentials('s3_keepass_key_name'),hidden: true],
+                            s3_keepass_key_secret: [value: credentials('s3_keepass_key_secret'),hidden: true],
+                            keepass_psw: [value: credentials('keepass_psw'),hidden: true]
                         ]
                     )
                     sh '''
