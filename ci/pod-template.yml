@@ -3,3 +3,7 @@ spec:
   containers:
     - name: ansible
       image: ghcr.io/samerbahri98/k8s-admin-ansible:main
+      alwaysPullImage: true
+      privileged: true
+      ttyEnabled: true
+      command: tail -f /dev/null
