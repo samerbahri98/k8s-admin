@@ -3,9 +3,7 @@
   community.mysql.mysql_db:
     name: "{{ db_name }}"
     state: "{{ state }}"
-
     login_host: "{{ db_host }}"
-
     login_password:
       "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
     login_user:
@@ -23,7 +21,7 @@
     name: "{{ db_name }}"
     state: "{{ state }}"
     priv:
-      "{{ db_name }}.*": 'ALL, GRANT'
+      "{{ db_name }}.*:ALL"
 - name: MySQL | DELETE DB
   community.mysql.mysql_db:
     name: "{{ db_name }}"
