@@ -7,7 +7,6 @@ pipeline {
     environment {
         KUBECONFIG=credentials('kubeconfig-admin')
         keepass_dbx='/ansible/.keepass/k8s.kdbx'
-        s3_keepass_endpoint='s3_keepass_endpoint'
         api_key=credentials('vultr_api_key')
         keepass_psw=credentials('keepass_psw')
         s3_keepass_key_id=credentials('s3_keepass_key_id')
