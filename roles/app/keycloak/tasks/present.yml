@@ -1,9 +1,9 @@
 ---
-- name: HELM | INSTALL NGINX
+- name: HELM | INSTALL KEYCLOAK
   kubernetes.core.helm:
     name: keycloak
     chart_ref: bitnami/keycloak
-    chart_version: 4.2.5
+    chart_version: 10.1.2
     release_namespace: "{{ namespace }}"
     create_namespace: true
     values: "{{ lookup('template', 'values.yml') | from_yaml }}"
