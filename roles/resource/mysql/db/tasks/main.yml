@@ -17,7 +17,7 @@
       "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'username') }}"
     password: "{{ db_password }}"
     name: "{{ db_name }}"
-    host_all: true
+    host: "%"
     state: "{{ state }}"
     priv:
       "{{ db_name }}.*:ALL"
