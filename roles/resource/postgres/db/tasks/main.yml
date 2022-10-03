@@ -9,28 +9,16 @@
       {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'password') }}
     login_user: |
       {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'username') }}"
-  when:
-    - state == 'present'
 - name: POSTGRES | USER
   community.postgresql.postgresql_user:
-    login_host: |
-      {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'url') }}
-    login_password: |
-      {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'password') }}
-    login_user: |
-      {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'username') }}
+    login_host:
+      "{{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'url') }}"
+    login_password:
+      "{{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'password') }}"
+    login_user:
+      "{{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'username') }}"
     db: "{{ db_name }}"
     password: "{{ db_password }}"
     state: "{{ state }}"
-- name: POSTGRES | DELETE DB
-  community.postgresql.postgresql_db:
     name: "{{ db_name }}"
-    state: "{{ state }}"
-    login_host: |
-      {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'url') }}
-    login_password: |
-      {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'password') }}
-    login_user: |
-      {{ lookup('viczem.keepass.keepass', 'Postgres/ROOT', 'username') }}"
-  when:
-    - state == 'absent'
+    role_attr_flags: CREATEDB,CREATEROLE,NOSUPERUSER,LOGIN

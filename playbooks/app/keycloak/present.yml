@@ -4,11 +4,11 @@
   become: false
   gather_facts: false
   roles:
-    - resource/mysql/db
+    - resource/postgres/db
   vars:
     state: present
     db_name: keycloak
     db_host:
-      "{{ lookup('viczem.keepass.keepass','MySQL/ROOT','url') }}"
+      "{{ lookup('viczem.keepass.keepass','POSTGRES/ROOT','url') }}"
     db_password:
-      "{{ lookup('viczem.keepass.keepass','MySQL/Keycloak','password') }}"
+      "{{ lookup('viczem.keepass.keepass','POSTGRES/Keycloak','password') }}"
