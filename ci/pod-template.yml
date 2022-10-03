@@ -6,6 +6,7 @@ spec:
       alwaysPullImage: true
       privileged: true
       ttyEnabled: true
+      dnsPolicy: Default
       command:
         - tail
         - -f
