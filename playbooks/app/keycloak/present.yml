@@ -9,5 +9,5 @@
     state: present
     db_name: keycloak
     db_host: pxc-db-haproxy.percona.svc.cluster.local
-    db_password: |
-      {{ lookup('viczem.keepass.keepass','MySQL/Keycloak','password') }}
+    db_password:
+      "{{ lookup('viczem.keepass.keepass','MySQL/Keycloak','password') }}"
