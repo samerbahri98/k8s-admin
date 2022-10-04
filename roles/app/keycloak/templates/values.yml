@@ -66,12 +66,12 @@ ingress:
         - "*.k8s.samerbahri.tk"
       secretName: wildcard-k8s-samerbahri-tk-tls
   console:
-    enabled: true
+    enabled: false
     # The name of Ingress Class associated with the console ingress only
     ingressClassName: "nginx"
     annotations: {}
     rules:
-      - host: 'admin.keycloak.k8s.samerbahri.tk'
+      - host: 'keycloak.k8s.samerbahri.tk'
         paths:
           - path: /auth/admin/
             pathType: Prefix
