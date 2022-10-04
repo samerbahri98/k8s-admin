@@ -16,6 +16,8 @@ extraEnv: |
     value: "5432"
   - name: DB_DATABASE
     value: {{ db_name }}
+  - name: KC_HOSTNAME
+    value: keycloak.k8s.samerbahri.tk
 extraEnvFrom: |
   - secretRef:
       name: 'keycloak-creds'
@@ -65,7 +67,7 @@ ingress:
     ingressClassName: "nginx"
     annotations: {}
     rules:
-      - host: 'keycloak.k8s.samerbahri.tk/auth/admin'
+      - host: 'keycloak.k8s.samerbahri.tk'
         paths:
           - path: /auth/admin/
             pathType: Prefix
