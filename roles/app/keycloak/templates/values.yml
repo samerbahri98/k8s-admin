@@ -195,13 +195,7 @@ keycloakConfigCli:
   configuration: {}
   existingConfigmap: ""
 postgresql:
-  enabled: true
-  auth:
-    username: "{{ db_name }}"
-    password: "{{ db_password }}"
-    database: "{{ db_name }}"
-    existingSecret: ""
-  architecture: standalone
+  enabled: false
 externalDatabase:
   host: "{{ db_host }}"
   port: 5432
