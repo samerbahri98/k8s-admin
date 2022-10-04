@@ -5,6 +5,8 @@ serviceAccount:
   annotations: {}
   labels: {}
   imagePullSecrets: []
+image:
+  tag: "19.0.2"
 command: []
 args: []
 extraEnv: |
