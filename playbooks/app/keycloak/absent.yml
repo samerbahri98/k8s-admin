@@ -4,8 +4,8 @@
   become: false
   gather_facts: false
   roles:
-    - resource/postgres/db
     - app/keycloak
+    - resource/postgres/db
   vars:
     state: absent
     db_name: keycloak
