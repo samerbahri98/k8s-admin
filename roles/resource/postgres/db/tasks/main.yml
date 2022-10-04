@@ -24,6 +24,8 @@
     state: "{{ state }}"
     name: "{{ db_name }}"
     role_attr_flags: CREATEDB,CREATEROLE,NOSUPERUSER,LOGIN
+  when:
+    - state == "present"
 - name: POSTGRES | DELETE DB
   community.postgresql.postgresql_db:
     name: "{{ db_name }}"
