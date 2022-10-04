@@ -10,8 +10,8 @@
     chart_version: 18.3.0
     release_namespace: "{{ namespace }}"
     create_namespace: true
-    release_state: present
     values: "{{ lookup('template', 'values.yml') | from_yaml }}"
+    wait: true
   vars:
     keycloak_admin_username:
       "{{ lookup('viczem.keepass.keepass', 'Keycloak/ROOT', 'username') }}"
@@ -24,5 +24,7 @@
     name: keycloak
     release_namespace: "{{ namespace }}"
     release_state: absent
+    state: absent
+    wait: true
   when:
     - state == "absent"
