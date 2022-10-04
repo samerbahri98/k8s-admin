@@ -19,7 +19,7 @@ extraEnv: |
   - name: KC_HOSTNAME
     value: keycloak.k8s.samerbahri.tk
   - name: KC_HOSTNAME_PORT
-    value: 32443
+    value: "32443"
   - name: KC_PROXY
     value: edge
 extraEnvFrom: |
