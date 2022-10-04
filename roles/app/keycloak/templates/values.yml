@@ -65,7 +65,7 @@ ingress:
     ingressClassName: "nginx"
     annotations: {}
     rules:
-      - host: 'keycloak.k8s.samerbahri.tk'
+      - host: 'keycloak.k8s.samerbahri.tk/auth/admin'
         paths:
           - path: /auth/admin/
             pathType: Prefix
