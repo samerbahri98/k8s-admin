@@ -10,7 +10,7 @@
     chart_version: 10.1.2
     release_namespace: "{{ namespace }}"
     create_namespace: true
-    state: "{{ state }}"
+    release_state: "{{ state }}"
     values: "{{ lookup('template', 'values.yml') | from_yaml }}"
   vars:
     keycloak_admin_username:
