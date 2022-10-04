@@ -1,13 +1,13 @@
 ---
-- name: HELM REPOSITORY | IMPORT BITNAMI
+- name: HELM REPOSITORY | IMPORT codecentric
   kubernetes.core.helm_repository:
-    name: bitnami
-    repo_url: https://charts.bitnami.com/bitnami
+    name: codecentric
+    repo_url: https://codecentric.github.io/helm-charts
 - name: KEYCLOAK | STATE
   kubernetes.core.helm:
     name: keycloak
-    chart_ref: bitnami/keycloak
-    chart_version: 10.1.2
+    chart_ref: codecentric/keycloak
+    chart_version: 18.3.0
     release_namespace: "{{ namespace }}"
     create_namespace: true
     release_state: "{{ state }}"
