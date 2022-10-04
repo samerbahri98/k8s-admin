@@ -4,9 +4,16 @@
     name: bitnami
     repo_url: https://charts.bitnami.com/bitnami
 - name: KEYCLOAK | STATE
-  import_tasks: "{{ state }}.yml"
+  kubernetes.core.helm:
+    name: keycloak
+    chart_ref: bitnami/keycloak
+    chart_version: 10.1.2
+    release_namespace: "{{ namespace }}"
+    create_namespace: true
+    state: "{{ state }}"
+    values: "{{ lookup('template', 'values.yml') | from_yaml }}"
   vars:
     keycloak_admin_username:
-      "{{ lookup('viczem.keepass.keepass','Keycloak/ROOT','username') }}"
+      "{{ lookup('viczem.keepass.keepass', 'Keycloak/ROOT', 'username') }}"
     keycloak_admin_password:
-      "{{ lookup('viczem.keepass.keepass','Keycloak/ROOT','password') }}"
+      "{{ lookup('viczem.keepass.keepass', 'Keycloak/ROOT', 'password') }}"
