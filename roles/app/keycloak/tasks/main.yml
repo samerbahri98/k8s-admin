@@ -23,7 +23,6 @@
   kubernetes.core.helm:
     name: keycloak
     release_namespace: "{{ namespace }}"
-    release_state: absent
     state: absent
     wait: true
   when:
