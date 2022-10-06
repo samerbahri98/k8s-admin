@@ -3,7 +3,7 @@
   kubernetes.core.helm_repository:
     name: codecentric
     repo_url: https://codecentric.github.io/helm-charts
-- name: KEYCLOAK | PRESENT
+- name: KEYCLOAK | STATE
   kubernetes.core.helm:
     name: keycloak
     chart_ref: codecentric/keycloak
@@ -11,19 +11,9 @@
     release_namespace: "{{ namespace }}"
     create_namespace: true
     values: "{{ lookup('template', 'values.yml') | from_yaml }}"
-    wait: true
+    state: "{{ state }}"
   vars:
     keycloak_admin_username:
       "{{ lookup('viczem.keepass.keepass', 'Keycloak/ROOT', 'username') }}"
     keycloak_admin_password:
       "{{ lookup('viczem.keepass.keepass', 'Keycloak/ROOT', 'password') }}"
-  when:
-    - state == "present"
-- name: KEYCLOAK | ABSENT
-  kubernetes.core.helm:
-    name: keycloak
-    release_namespace: "{{ namespace }}"
-    state: absent
-    wait: true
-  when:
-    - state == "absent"
