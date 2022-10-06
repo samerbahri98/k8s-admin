@@ -25,3 +25,4 @@ mock_modules:
   - viczem.keepass.keepass
 skip_list:
   - jinja[invalid]
+  - fqcn-builtins
