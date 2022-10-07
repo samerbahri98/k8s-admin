@@ -1,0 +1,46 @@
+---
+- name: JENKINS | PLAYBOOK
+  hosts: localhost
+  gather_facts: false
+  vars:
+    token:
+      "{{ lookup('viczem.keepass.keepass','Jenkins/playbook','password') }}"
+    jenkins_playbook_url:
+      "{{ lookup('viczem.keepass.keepass','Jenkins/playbook','url') }}"
+    jenkins_url:
+      "{{ lookup('viczem.keepass.keepass','Jenkins/ROOT','url') }}"
+    playbook: playbooks/misc/keepass_pull.yml
+    inventory: inventory.k8s.yml
+    username:
+      "{{ lookup('viczem.keepass.keepass','Jenkins/ROOT','username') }}"
+    password:
+      "{{ lookup('viczem.keepass.keepass','Jenkins/ROOT','password') }}"
+  tasks:
+    - name: JENKINS | GET CRUMB
+      uri:
+        url:
+          "{{ jenkins_url }}/crumbIssuer/api/xml\
+          ?xpath=concat(//crumbRequestField,\":\",//crumb)"
+        method: GET
+        user: "{{ username }}"
+        password: "{{ password }}"
+        force_basic_auth: true
+        return_content: true
+      register: jenkins_crumb
+    - name: JENKINS | RUN PLAYBOOK
+      uri:
+        url: "{{ jenkins_playbook_url }}{{ token }}"
+        method: POST
+        body:
+          INVENTORY: "{{ inventory }}"
+          PLAYBOOK: "{{ playbook }}"
+        body_format: form-multipart
+        user: "{{ username }}"
+        password: "{{ password }}"
+        force_basic_auth: true
+        headers:
+          Content-Type: multipart/form-data
+          Jenkins-Crumb: "{{ jenkins_crumb.content.split(':')[1] }}"
+          Cookie: "{{ jenkins_crumb.set_cookie }}"
+        status_code:
+          - 201
