@@ -12,7 +12,7 @@ repos:
       - id: yamllint
         args: [-c=.yamllint]
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v6.8.1
+    rev: v6.8.2
     hooks:
       - id: ansible-lint
   - repo: https://github.com/shellcheck-py/shellcheck-py
