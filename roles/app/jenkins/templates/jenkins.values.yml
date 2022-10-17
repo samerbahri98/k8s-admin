@@ -59,8 +59,9 @@ controller:
     - ansible:1.1
     - ansible-tower:0.16.0
     - docker-plugin:1.2.10
-    - docker-commons:1.21
     - docker-java-api:3.2.13-37.vf3411c9828b9
+    - docker-workflow:521.v1a_a_dd2073b_2e
+    - http_request:1.16
 
   installLatestPlugins: true
   installLatestSpecifiedPlugins: false
