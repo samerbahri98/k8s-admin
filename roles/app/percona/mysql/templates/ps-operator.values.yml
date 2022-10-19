@@ -1,0 +1,29 @@
+---
+replicaCount: 1
+
+image:
+  repository: percona/percona-server-mysql-operator
+  tag: 0.3.0
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+env:
+  logStructured: false
+  logLevel: "INFO"
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

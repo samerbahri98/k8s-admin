@@ -1,0 +1,10 @@
+---
+- name: MySQL | ENSURE PRESENT
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - app/percona/mysql
+  vars:
+    state: present
+    namespace: mysql
