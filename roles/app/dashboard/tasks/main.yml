@@ -1,0 +1,14 @@
+---
+- name: HELM REPOSITORY | IMPORT DASHBOARD
+  kubernetes.core.helm_repository:
+    name: kubernetes-dashboard
+    repo_url: https://kubernetes.github.io/dashboard/
+- name: DASHBOARD | STATE
+  kubernetes.core.helm:
+    name: kubernetes-dashboard
+    chart_ref: kubernetes-dashboard/kubernetes-dashboard
+    chart_version: 5.11.0
+    release_namespace: "{{ namespace }}"
+    create_namespace: true
+    values: "{{ lookup('file', 'values.yml') | from_yaml }}"
+    state: "{{ state }}"

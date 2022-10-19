@@ -1,0 +1,11 @@
+---
+- name: install dashboard
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - misc/public_namespace
+    - app/dashboard
+  vars:
+    state: present
+    namespace: dashboard

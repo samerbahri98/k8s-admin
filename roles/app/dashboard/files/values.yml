@@ -1,0 +1,15 @@
+---
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  paths:
+    - /
+  customPaths: []
+  hosts:
+    - dashboard.k8s.samerbahri.tk
+
+  tls:
+    - hosts:
+        - "*.k8s.samerbahri.tk"
+      secretName: wildcard-k8s-samerbahri-tk-tls
