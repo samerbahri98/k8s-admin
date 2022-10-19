@@ -1,7 +1,4 @@
 ---
-nameOverride: ""
-fullnameOverride: ""
-
 finalizers:
   - delete-mysql-pods-in-order
 
@@ -16,7 +13,7 @@ mysql:
     tag: 8.0.29
   imagePullPolicy: Always
   imagePullSecrets: []
-  size: 3
+  size: 1
   sizeSemiSync: 0
 
   resources:
@@ -24,8 +21,8 @@ mysql:
       cpu: 50m
       memory: 128M
     limits:
-      cpu: 500m
-      memory: 256M
+      cpu: 200m
+      memory: 512M
 
   affinity:
     antiAffinityTopologyKey: "kubernetes.io/hostname"
@@ -45,7 +42,22 @@ mysql:
   tolerations: []
 
 haproxy:
-  enabled: false
+  enabled: true
+  image:
+    repository: percona/percona-server-mysql-operator
+    tag: 0.3.0-haproxy
+  imagePullPolicy: Always
+  imagePullSecrets: []
+  size: 1
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128M
+    limits:
+      cpu: 200m
+      memory: 512M
+
 
 router:
   image:
@@ -61,15 +73,6 @@ router:
       memory: 256M
     limits:
       memory: 256M
-
-  affinity:
-    antiAffinityTopologyKey: "kubernetes.io/hostname"
-
-  annotations: {}
-  labels: {}
-  nodeSelector: {}
-  tolerations: []
-
 
 orchestrator:
   image:
