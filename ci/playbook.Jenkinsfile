@@ -9,7 +9,7 @@ pipeline {
         HOST_VAR=credentials('localhost.yml')
     }
     parameters {
-        string(name:'INVENTORY',defaultValue:'inventory.k8s.yml')
+        string(name:'INVENTORY',defaultValue:'inventory/')
         string(name:'PLAYBOOK',defaultValue:'playbooks/misc/keepass_pull.yml')
     }
     stages{
@@ -17,12 +17,12 @@ pipeline {
             steps {
                 container('ansible'){
                     sh '''
-                    ln -s $HOST_VAR host_vars/localhost.yml 
+                    ln -s $HOST_VAR inventory/host_vars/localhost.yml 
                     '''
                     checkout scm
                     ansiblePlaybook(
                         playbook: 'playbooks/misc/keepass_pull.yml',
-                        inventory: 'inventory.k8s.yml', 
+                        inventory: 'inventory/',
                         credentialsId: 'GitHub-SSH',
                         vaultCredentialsId: 'ansible-vault',
                         colorized: true,

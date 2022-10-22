@@ -1,4 +1,5 @@
 .kube/config
 .keepass/k8s.kdbx
 artifacts
-host_vars/localhost.yml
+inventory/host_vars/localhost.yml
+vultr.ini
