@@ -1,41 +1,5 @@
 ---
-global:
-  imagePullSecrets: []
-  priorityClassName: ""
-  rbac:
-    create: true
-    aggregateClusterRoles: true
-  podSecurityPolicy:
-    enabled: false
-    useAppArmor: true
-  logLevel: 2
-  leaderElection:
-    namespace: "kube-system"
 installCRDs: true
-replicaCount: 1
-strategy: {}
-featureGates: ""
-image:
-  repository: quay.io/jetstack/cert-manager-controller
-  pullPolicy: IfNotPresent
-clusterResourceNamespace: ""
-namespace: ""
-serviceAccount:
-  create: true
-  automountServiceAccountToken: true
-extraArgs: []
-extraEnv: []
-resources: {}
-securityContext:
-  runAsNonRoot: true
-containerSecurityContext:
-  allowPrivilegeEscalation: false
-volumes: []
-volumeMounts: []
-podLabels: {}
-nodeSelector:
-  kubernetes.io/os: linux
-ingressShim: {}
 prometheus:
   enabled: false
   servicemonitor:

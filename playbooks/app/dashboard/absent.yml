@@ -1,10 +1,10 @@
 ---
-- name: install dashboard
+- name: uninstall dashboard
   hosts: localhost
   become: false
   gather_facts: false
   roles:
     - app/dashboard
   vars:
-    state: present
+    state: absent
     namespace: dashboard

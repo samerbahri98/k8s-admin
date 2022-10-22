@@ -1,4 +1,18 @@
 ---
+- name: CERT-MANAGER | Vultr API KEY
+  register: vultr_api_secret
+  kubernetes.core.k8s:
+    state: present
+    namespace: cert-manager
+    append_hash: true
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: vultr-credentials
+      data:
+        apiKey: "{{ api_key | b64encode }}"
+      type: Opaque
 - name: HELM | INSTALL CERT-MANAGER
   kubernetes.core.helm:
     name: cert-manager
@@ -14,20 +28,6 @@
     chart_version: 1.0.0
     release_namespace: cert-manager
     create_namespace: true
-- name: CERT-MANAGER | Vultr API KEY
-  register: vultr_api_secret
-  kubernetes.core.k8s:
-    state: present
-    namespace: cert-manager
-    append_hash: true
-    definition:
-      apiVersion: v1
-      kind: Secret
-      metadata:
-        name: vultr-credentials
-      data:
-        apiKey: "{{ api_key }}"
-      type: Opaque
 
 - name: CERT-MANAGER | ClusterIssuer
   kubernetes.core.k8s:
@@ -51,7 +51,7 @@
                   solverName: vultr
                   config:
                     apiKeySecretRef:
-                      key: api_key
+                      key: apiKey
                       name: "{{ vultr_api_secret.result.metadata.name }}"
 - name: CERT-MANAGER | ROLE
   kubernetes.core.k8s:
@@ -67,7 +67,7 @@
         - apiGroups: [""]
           resources: ["secrets"]
           resourceNames: ["{{ vultr_api_secret.result.metadata.name }}"]
-          verbs: ["get", "watch"]
+          verbs: ["get", "watch", "list"]
 - name: CERT-MANAGER | ROLE BINDING
   kubernetes.core.k8s:
     state: present
@@ -83,6 +83,6 @@
         kind: Role
         name: cert-manager-webhook-vultr:secret-reader
       subjects:
-        - apiGroup: ""
+        - namespace: cert-manager
           kind: ServiceAccount
-          name: cert-manager-webhook-vultr
+          name: cert-manager-vultr-webhook-cert-manager-webhook-vultr
