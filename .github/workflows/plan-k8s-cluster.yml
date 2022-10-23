@@ -1,0 +1,44 @@
+---
+name: plan-k8s-cluster
+
+on:
+  workflow_dispatch:
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    name: plan kubernetes cluster
+    env:
+      AWS_PAGER: ''
+      BACKBLAZE_ACCESS_ID: '${{ secrets.BACKBLAZE_ACCESS_ID }}'
+      BACKBLAZE_ACCESS_KEY: '${{ secrets.BACKBLAZE_ACCESS_KEY }}'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.3
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: '${{ secrets.BACKBLAZE_ACCESS_ID }}'
+          aws-secret-access-key: '${{ secrets.BACKBLAZE_ACCESS_KEY }}'
+      - name: get terraform lock
+        run:
+          "aws s3api get-object
+          --bucket samerbahri98-k8s-admin-terraform-state
+          --key .terraform.lock.hcl
+          --endpoint https://s3.us-west-004.backblazeb2.com
+          --no-cli-pager
+          .terraform.lock.hcl"
+      - name: get terraform tfvars
+        run:
+          "aws s3api get-object
+          --bucket samerbahri98-k8s-admin-terraform-state
+          --key terraform.tfvars
+          --endpoint https://s3.us-west-004.backblazeb2.com
+          --no-cli-pager
+          terraform.tfvars"
+        working-directory: ./terraform
+      - run: terraform init --upgrade
+        working-directory: ./terraform
+      - run: terraform plan
+        working-directory: ./terraform

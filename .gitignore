@@ -6,3 +6,5 @@ vultr.ini
 .terraform
 .aws/config
 .aws/credentials
+terraform.tfvars
+.terraform.lock.hcl
