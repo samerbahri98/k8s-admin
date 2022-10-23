@@ -10,16 +10,14 @@ jobs:
     name: plan kubernetes cluster
     env:
       AWS_PAGER: ''
+      AWS_ACCESS_KEY_ID: '${{ secrets.BACKBLAZE_ACCESS_ID }}'
+      AWS_SECRET_ACCESS_KEY: '${{ secrets.BACKBLAZE_ACCESS_KEY }}'
+      AWS_REGION: us-west-1
     steps:
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.3.3
-      - uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: '${{ secrets.BACKBLAZE_ACCESS_ID }}'
-          aws-secret-access-key: '${{ secrets.BACKBLAZE_ACCESS_KEY }}'
-          aws-region: us-west-1
       - name: get terraform lock
         run:
           "aws s3api get-object
