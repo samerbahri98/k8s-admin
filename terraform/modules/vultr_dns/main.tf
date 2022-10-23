@@ -7,10 +7,7 @@ terraform {
   }
 }
 
-provider "vultr" {
-  api_key = var.VULTR_API_KEY
-}
-
 data "vultr_dns_domain" "public_domain" {
-  domain = var.DOMAIN
+  domain   = var.DOMAIN
+  provider = vultr
 }

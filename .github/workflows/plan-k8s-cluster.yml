@@ -26,6 +26,7 @@ jobs:
           --endpoint https://s3.us-west-004.backblazeb2.com
           --no-cli-pager
           .terraform.lock.hcl"
+        working-directory: ./terraform
       - name: get terraform tfvars
         run:
           "aws s3api get-object
