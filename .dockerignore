@@ -2,3 +2,5 @@
 .github
 .keepass
 .kube
+terraform
+ci
