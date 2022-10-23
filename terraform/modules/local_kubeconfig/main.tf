@@ -7,7 +7,3 @@ resource "local_sensitive_file" "kube_config_local" {
   filename        = var.KUBECONFIG_PATH
   file_permission = 440
 }
-
-data "local_sensitive_file" "kube_config_local" {
-  filename = var.KUBECONFIG_PATH
-}

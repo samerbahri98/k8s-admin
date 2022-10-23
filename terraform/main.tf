@@ -23,11 +23,17 @@ module "vultr_kubernetes" {
 module "local_kubeconfig" {
   source             = "./modules/local_kubeconfig"
   KUBECONFIG_CONTENT = module.vultr_kubernetes.kubeconfig
+  depends_on = [
+    module.vultr_kubernetes
+  ]
 }
 
 module "s3_kubeconfig" {
   source                = "./modules/s3_kubeconfig"
-  KUBECONFIG_PATH       = module.local_kubeconfig.kubeconfig_path
   B2_APPLICATION_KEY    = var.BACKBLAZE_ACCESS_KEY
   B2_APPLICATION_KEY_ID = var.BACKBLAZE_ACCESS_ID
+  depends_on = [
+    module.local_kubeconfig,
+    module.vultr_kubernetes
+  ]
 }
