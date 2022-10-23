@@ -3,12 +3,12 @@ provider "vultr" {
 }
 
 provider "aws" {
-  region                      = "us-west-1"
   access_key                  = var.BACKBLAZE_ACCESS_ID
   secret_key                  = var.BACKBLAZE_ACCESS_KEY
   skip_metadata_api_check     = true
   skip_credentials_validation = true
   skip_requesting_account_id  = true
+  skip_region_validation      = true
   endpoints {
     s3 = var.BACKBLAZE_ENDPOINT
   }
