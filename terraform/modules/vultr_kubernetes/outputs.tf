@@ -1,3 +1,4 @@
 output "kubeconfig" {
-  value = data.vultr_kubernetes.hlci_public.kube_config
+  value     = data.vultr_kubernetes.hlci_public.kube_config
+  sensitive = true
 }

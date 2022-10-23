@@ -4,19 +4,20 @@ provider "vultr" {
 
 provider "aws" {
   region                      = "us-west-1"
-  access_key                  = var.B2_APPLICATION_KEY_ID
-  secret_key                  = var.B2_APPLICATION_KEY
+  access_key                  = var.BACKBLAZE_ACCESS_ID
+  secret_key                  = var.BACKBLAZE_ACCESS_KEY
   skip_metadata_api_check     = true
   skip_credentials_validation = true
+  skip_requesting_account_id  = true
   endpoints {
-    s3 = var.B2_ENDPOINT
+    s3 = var.BACKBLAZE_ENDPOINT
   }
 
 }
 
 provider "b2" {
-  application_key    = var.B2_APPLICATION_KEY
-  application_key_id = var.B2_APPLICATION_KEY_ID
-  endpoint           = var.B2_ENDPOINT
+  application_key    = var.BACKBLAZE_ACCESS_KEY
+  application_key_id = var.BACKBLAZE_ACCESS_ID
+  endpoint           = var.BACKBLAZE_ENDPOINT
 }
 
