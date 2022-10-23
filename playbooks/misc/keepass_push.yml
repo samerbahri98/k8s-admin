@@ -4,15 +4,7 @@
   vars:
     db_dir: "{{ playbook_dir }}/../../.keepass/k8s.kdbx"
   tasks:
-    - name: S3 |  REMOVE OBJ
-      amazon.aws.aws_s3:
-        bucket: k8s-keepass
-        object: "keepass"
-        aws_access_key: "{{ s3_keepass_key_id }}"
-        aws_secret_key: "{{ s3_keepass_key_secret }}"
-        mode: delobj
-        s3_url: "{{ s3_keepass_endpoint }}"
-    - name: S3 |  SYNC
+    - name: S3 | SYNC
       amazon.aws.aws_s3:
         bucket: k8s-keepass
         src: "{{ db_dir }}"

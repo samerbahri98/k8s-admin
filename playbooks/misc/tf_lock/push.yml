@@ -1,0 +1,24 @@
+---
+- name: TERRAFOM | SYNC
+  hosts: localhost
+  vars:
+    tf_dir: "{{ playbook_dir }}/../../../terraform"
+  tasks:
+    - name: TFVARS | SYNC
+      amazon.aws.aws_s3:
+        bucket: samerbahri98-k8s-admin-terraform-state
+        src: "{{ tf_dir }}/terraform.tfvars"
+        object: "terraform.tfvars"
+        aws_access_key: "{{ s3_keepass_key_id }}"
+        aws_secret_key: "{{ s3_keepass_key_secret }}"
+        mode: put
+        s3_url: "{{ s3_keepass_endpoint }}"
+    - name: TFLOCK | SYNC
+      amazon.aws.aws_s3:
+        bucket: samerbahri98-k8s-admin-terraform-state
+        src: "{{ tf_dir }}/.terraform.lock.hcl"
+        object: ".terraform.lock.hcl"
+        aws_access_key: "{{ s3_keepass_key_id }}"
+        aws_secret_key: "{{ s3_keepass_key_secret }}"
+        mode: put
+        s3_url: "{{ s3_keepass_endpoint }}"
