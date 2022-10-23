@@ -3,9 +3,8 @@ variable "KUBECONFIG_BUCKET" {
   default = "samerbahri98-k8s-admin-kubeconfig"
 }
 
-variable "KUBECONFIG_PATH" {
-  type    = string
-  default = "/tmp/config"
+variable "KUBECONFIG_B64" {
+  type = string
 }
 
 variable "B2_APPLICATION_KEY" {
