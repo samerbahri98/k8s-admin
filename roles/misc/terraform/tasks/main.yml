@@ -1,0 +1,55 @@
+---
+- name: GPG | TERRAFORM
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    state: present
+  when:
+    - ansible_os_family == 'Debian'
+
+- name: APT-REPOSITORY | TERRAFORM
+  apt_repository:
+    repo: >
+      deb [arch=amd64] https://apt.releases.hashicorp.com
+       {{ ansible_distribution_release }} main
+    state: present
+  when:
+    - ansible_os_family == 'Debian'
+
+- name: TERRAFORM | APT
+  apt:
+    name: terraform
+    update_cache: true
+    state: present
+  when:
+    - ansible_os_family == 'Debian'
+
+- name: DOWNLOAD | AWS-CLI
+  ansible.builtin.get_url:
+    url:
+      "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+    dest: /tmp/awscliv2.zip
+    owner: root
+    group: root
+    mode: 0755
+
+- name: UNZIP | AWS-CLI
+  ansible.builtin.unarchive:
+    src: /tmp/awscliv2.zip
+    remote_src: true
+    dest: /tmp
+    owner: root
+    group: root
+    mode: 0755
+- name: SHELL | AWS-CLI
+  ansible.builtin.command:
+    chdir: /tmp
+    cmd: ./aws/install
+    creates: /usr/local/aws-cli
+- name: CLEANUP | AWS-CLI ZIP
+  file:
+    path: /tmp/awscliv2.zip
+    state: absent
+- name: CLEANUP | AWS-CLI DIR
+  file:
+    path: /tmp/aws
+    state: absent

@@ -3,3 +3,6 @@
 artifacts
 inventory/host_vars/localhost.yml
 vultr.ini
+.terraform
+.aws/config
+.aws/credentials

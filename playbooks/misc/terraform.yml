@@ -1,0 +1,5 @@
+---
+- name: TERRAFORM
+  hosts: localhost
+  roles:
+    - misc/terraform
