@@ -3,6 +3,7 @@ provider "vultr" {
 }
 
 provider "aws" {
+  region                      = "us-west-004"
   access_key                  = var.BACKBLAZE_ACCESS_ID
   secret_key                  = var.BACKBLAZE_ACCESS_KEY
   skip_metadata_api_check     = true
