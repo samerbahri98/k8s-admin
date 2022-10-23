@@ -14,3 +14,20 @@ module "vultr_dns" {
   source        = "./modules/vultr_dns"
   VULTR_API_KEY = var.VULTR_API_KEY
 }
+
+module "vultr_kubernetes" {
+  source        = "./modules/vultr_kubernetes"
+  VULTR_API_KEY = var.VULTR_API_KEY
+}
+
+module "local_kubeconfig" {
+  source             = "./modules/local_kubeconfig"
+  KUBECONFIG_CONTENT = module.vultr_kubernetes.kubeconfig
+}
+
+module "s3_kubeconfig" {
+  source                = "./modules/s3_kubeconfig"
+  KUBECONFIG_PATH       = module.local_kubeconfig.kubeconfig_path
+  B2_APPLICATION_KEY    = var.BACKBLAZE_ACCESS_KEY
+  B2_APPLICATION_KEY_ID = var.BACKBLAZE_ACCESS_ID
+}
