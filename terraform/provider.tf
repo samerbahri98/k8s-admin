@@ -1,3 +1,7 @@
+provider "vultr" {
+  api_key = var.VULTR_API_KEY
+}
+
 provider "aws" {
   region                      = "us-west-1"
   access_key                  = var.B2_APPLICATION_KEY_ID
@@ -15,3 +19,4 @@ provider "b2" {
   application_key_id = var.B2_APPLICATION_KEY_ID
   endpoint           = var.B2_ENDPOINT
 }
+

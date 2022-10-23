@@ -8,6 +8,21 @@ terraform {
     region                      = "us-west-1"
     key                         = "terraform.tfstate"
   }
+  required_version = ">= 1.3.0"
+  required_providers {
+    b2 = {
+      source  = "Backblaze/b2"
+      version = "0.8.1"
+    }
+    aws = {
+      source  = "hashicorp/aws"
+      version = "4.36.1"
+    }
+    vultr = {
+      source  = "vultr/vultr"
+      version = "2.11.4"
+    }
+  }
 }
 
 module "vultr_dns" {
@@ -28,4 +43,8 @@ module "s3_kubeconfig" {
   depends_on = [
     module.vultr_kubernetes
   ]
+  providers = {
+    aws = aws
+    b2  = b2
+  }
 }
