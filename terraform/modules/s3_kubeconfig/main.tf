@@ -56,10 +56,6 @@ resource "aws_s3_bucket_cors_configuration" "kubeconfig_bucket_cors" {
   provider = aws
 }
 
-resource "aws_s3_bucket_object_lock_configuration" "name" {
-
-}
-
 resource "aws_s3_object" "kubeconfig_bucket_file" {
   bucket         = var.KUBECONFIG_BUCKET
   key            = "config"
