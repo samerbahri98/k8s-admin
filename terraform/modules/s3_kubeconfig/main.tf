@@ -18,7 +18,8 @@ resource "aws_s3_bucket" "kubeconfig_bucket" {
   lifecycle {
     prevent_destroy = true
   }
-  provider = aws
+  object_lock_enabled = true
+  provider            = aws
 }
 
 resource "aws_s3_bucket_acl" "kubeconfig_bucket_acl" {
@@ -46,6 +47,19 @@ resource "aws_s3_bucket_versioning" "kubeconfig_bucket_version" {
   provider = aws
 }
 
+resource "aws_s3_bucket_cors_configuration" "kubeconfig_bucket_cors" {
+  bucket = aws_s3_bucket.kubeconfig_bucket.id
+  cors_rule {
+    allowed_origins = ["*"]
+    allowed_methods = []
+  }
+  provider = aws
+}
+
+resource "aws_s3_bucket_object_lock_configuration" "name" {
+
+}
+
 resource "aws_s3_object" "kubeconfig_bucket_file" {
   bucket         = var.KUBECONFIG_BUCKET
   key            = "config"
@@ -55,6 +69,6 @@ resource "aws_s3_object" "kubeconfig_bucket_file" {
     aws_s3_bucket_acl.kubeconfig_bucket_acl,
     aws_s3_bucket_server_side_encryption_configuration.kubeconfig_bucket_encryption,
     aws_s3_bucket_versioning.kubeconfig_bucket_version,
-    aws_s3_bucket.kubeconfig_bucket
+    aws_s3_bucket_cors_configuration.kubeconfig_bucket_cors,
   ]
 }
