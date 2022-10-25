@@ -1,0 +1,7 @@
+---
+- name: ENSURE OPENEBS IS ABSENT
+  hosts: localhost
+  roles:
+    - openebs
+  vars:
+    state: absent

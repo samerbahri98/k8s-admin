@@ -1,0 +1,13 @@
+---
+- name: HELM REPOSITORY | IMPORT OPENEBS
+  kubernetes.core.helm_repository:
+    name: openebs
+    repo_url: https://openebs.github.io/charts
+- name: OPENEBS | STATE
+  kubernetes.core.helm:
+    name: openebs
+    chart_ref: openebs/openebs
+    chart_version: 3.3.1
+    release_namespace: openebs
+    create_namespace: true
+    state: "{{ state }}"

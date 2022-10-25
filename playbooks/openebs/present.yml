@@ -1,0 +1,7 @@
+---
+- name: ENSURE OPENEBS IS PRESENT
+  hosts: localhost
+  roles:
+    - openebs
+  vars:
+    state: present
