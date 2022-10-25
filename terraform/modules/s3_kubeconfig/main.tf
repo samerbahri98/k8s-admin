@@ -19,14 +19,7 @@ resource "aws_s3_bucket" "kubeconfig_bucket" {
     prevent_destroy = true
   }
   object_lock_enabled = true
-  cors_rule {
-    allowed_origins = ["*"]
-    allowed_methods = []
-    allowed_headers = ["*"]
-    expose_headers  = ["ETag"]
-    max_age_seconds = 3000
-  }
-  provider = aws
+  provider            = aws
 }
 
 resource "aws_s3_bucket_acl" "kubeconfig_bucket_acl" {
@@ -58,7 +51,7 @@ resource "aws_s3_bucket_cors_configuration" "kubeconfig_bucket_cors" {
   bucket = aws_s3_bucket.kubeconfig_bucket.id
   cors_rule {
     allowed_origins = ["*"]
-    allowed_methods = []
+    allowed_methods = [""]
     allowed_headers = ["*"]
     expose_headers  = ["ETag"]
     max_age_seconds = 3000
