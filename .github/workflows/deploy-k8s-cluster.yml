@@ -49,7 +49,7 @@ jobs:
           --bucket samerbahri98-k8s-admin-terraform-state
           --key .terraform.lock.hcl
           --endpoint https://s3.us-west-004.backblazeb2.com
-          --body file://$PWD/.terraform.lock.hcl"
+          --body $PWD/.terraform.lock.hcl"
         working-directory: ./terraform
       - name: cleanup
         run: rm -rf .terraform.lock.hcl terraform.tfvars
