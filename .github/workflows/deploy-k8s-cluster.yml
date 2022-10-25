@@ -38,8 +38,11 @@ jobs:
         working-directory: ./terraform
       - run: terraform init --upgrade
         working-directory: ./terraform
+      - run: terraform plan
+        working-directory: ./terraform
       - run: terraform apply --auto-approve
         working-directory: ./terraform
+        continue-on-error: true
       - name: update terraform lock
         run:
           "aws s3api put-object
