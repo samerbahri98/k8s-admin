@@ -12,6 +12,10 @@ terraform {
   }
 }
 
+data "aws_s3_bucket" "kubeconfig_bucket" {
+  bucket   = var.KUBECONFIG_BUCKET
+  provider = aws
+}
 
 # resource "aws_s3_bucket" "kubeconfig_bucket" {
 #   bucket = var.KUBECONFIG_BUCKET
@@ -67,7 +71,7 @@ terraform {
 # }
 
 resource "aws_s3_object" "kubeconfig_bucket_file" {
-  bucket         = var.KUBECONFIG_BUCKET
+  bucket         = data.aws_s3_bucket.kubeconfig_bucket.id
   key            = "config"
   content_base64 = var.KUBECONFIG_B64
   provider       = aws
