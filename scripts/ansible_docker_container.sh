@@ -7,4 +7,5 @@ docker run --rm -it\
     -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" \
     -e KUBECONFIG=/ansible/.kube/config \
     --privileged \
+    --add-host=host.docker.internal:host-gateway \
     ghcr.io/samerbahri98/k8s-admin-ansible:main /bin/bash
