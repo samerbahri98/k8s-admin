@@ -1,0 +1,36 @@
+---
+- name: HELM REPOSITORY | IMPORT PERCONA
+  kubernetes.core.helm_repository:
+    name: percona
+    repo_url: https://percona.github.io/percona-helm-charts
+- name: PERCONA XTRADB OPERATOR | STATE
+  kubernetes.core.helm:
+    name: pxc-operator
+    chart_ref: percona/pxc-operator
+    chart_version: 1.11.1
+    release_namespace: "{{ namespace }}"
+    create_namespace: true
+    values: "{{ lookup('template', 'pxc-operator.values.yml') | from_yaml }}"
+    state: "{{ state }}"
+  when:
+    - state == "present"
+- name: PERCONA XTRADB DB | STATE
+  kubernetes.core.helm:
+    name: pxc-db
+    chart_ref: percona/pxc-db
+    chart_version: 1.11.5
+    release_namespace: "{{ namespace }}"
+    create_namespace: true
+    values: "{{ lookup('template', 'pxc-db.values.yml') | from_yaml }}"
+    state: "{{ state }}"
+- name: PERCONA XTRADB OPERATOR | STATE
+  kubernetes.core.helm:
+    name: pxc-operator
+    chart_ref: percona/pxc-operator
+    chart_version: 1.11.1
+    release_namespace: "{{ namespace }}"
+    create_namespace: true
+    values: "{{ lookup('template', 'pxc-operator.values.yml') | from_yaml }}"
+    state: "{{ state }}"
+  when:
+    - state == "absent"

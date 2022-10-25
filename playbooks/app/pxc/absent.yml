@@ -1,0 +1,10 @@
+---
+- name: PXC | ENSURE PRESENT
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - app/percona/pxc
+  vars:
+    state: absent
+    namespace: pxc

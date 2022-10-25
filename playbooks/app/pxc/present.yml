@@ -1,10 +1,10 @@
 ---
-- name: MySQL | ENSURE PRESENT
+- name: PXC | ENSURE PRESENT
   hosts: localhost
   become: false
   gather_facts: false
   roles:
-    - app/percona/mysql
+    - app/percona/pxc
   vars:
     state: present
-    namespace: mysql
+    namespace: pxc

@@ -1,0 +1,54 @@
+---
+finalizers:
+pxc:
+  size: 1
+  resources:
+    requests:
+      memory: 128M
+      cpu: 50m
+  persistence:
+    enabled: false
+    storageClass: "openebs-hostpath"
+    accessMode: ReadWriteOnce
+    size: 3Gi
+
+haproxy:
+  enabled: true
+  size: 1
+  resources:
+    requests:
+      memory: 128M
+      cpu: 50m
+
+logcollector:
+  resources:
+    requests:
+      memory: 20M
+      cpu: 200m
+    limits: {}
+
+pmm:
+  enabled: false
+
+backup:
+  enabled: false
+
+secrets:
+  passwords:
+    root:
+      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
+    xtrabackup:
+      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
+    monitor:
+      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
+    clustercheck:
+      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
+    proxyadmin:
+      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
+    pmmserver:
+      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
+    operator:
+      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
+    replication:
+      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
+  tls: {}
