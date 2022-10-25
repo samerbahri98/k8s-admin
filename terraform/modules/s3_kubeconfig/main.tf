@@ -52,6 +52,9 @@ resource "aws_s3_bucket_cors_configuration" "kubeconfig_bucket_cors" {
   cors_rule {
     allowed_origins = ["*"]
     allowed_methods = []
+    allowed_headers = ["*"]
+    expose_headers  = ["ETag"]
+    max_age_seconds = 3000
   }
   provider = aws
 }
