@@ -1,0 +1,13 @@
+---
+# - name: Nginx ingress controller
+#   import_playbook: ./nginx_ingress_controller/absent.yml
+# - name: Cert-manager
+#   import_playbook: ./cert_manager/absent.yml
+- name: OpenEBS
+  import_playbook: ./openebs/absent.yml
+# - name: Dashboard
+#   import_playbook: ./app/dashboard/absent.yml
+- name: pxc
+  import_playbook: ./app/pxc/absent.yml
+- name: pg
+  import_playbook: ./app/pg/absent.yml
