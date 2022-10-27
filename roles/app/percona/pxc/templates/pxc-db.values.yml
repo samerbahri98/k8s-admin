@@ -1,20 +1,20 @@
 ---
 finalizers:
 pxc:
-  size: 1
+  size: 0
   resources:
     requests:
-      memory: 128M
+      memory: 128Mi
       cpu: 50m
   persistence:
     enabled: false
     storageClass: "openebs-hostpath"
     accessMode: ReadWriteOnce
-    size: 3Gi
+    size: 1Gi
 
 haproxy:
   enabled: true
-  size: 1
+  size: 0
   resources:
     requests:
       memory: 128M

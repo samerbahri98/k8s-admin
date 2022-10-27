@@ -12,6 +12,7 @@
     create_namespace: true
     values: "{{ lookup('template', 'pxc-operator.values.yml') | from_yaml }}"
     state: "{{ state }}"
+    wait: true
   when:
     - state == "present"
 - name: PERCONA XTRADB DB | STATE
