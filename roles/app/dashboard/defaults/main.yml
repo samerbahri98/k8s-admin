@@ -1,0 +1,4 @@
+---
+hostname: "dashboard.k8s.samerbahri.tk"
+cert_hostname: "*.k8s.samerbahri.tk"
+cert_secret: "wildcard-k8s-samerbahri-tk-tls"

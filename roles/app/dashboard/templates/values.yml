@@ -8,9 +8,9 @@ ingress:
     - /
   customPaths: []
   hosts:
-    - dashboard.k8s.samerbahri.tk
+    - "{{ hostname }}"
 
   tls:
     - hosts:
-        - "*.k8s.samerbahri.tk"
-      secretName: wildcard-k8s-samerbahri-tk-tls
+        - "{{ cert_hostname }}"
+      secretName: "{{ cert_secret }}"

@@ -8,3 +8,6 @@
   vars:
     state: present
     namespace: dashboard
+    hostname: "dashboard.mm.samerbahri.tk"
+    cert_hostname: "*.mm.samerbahri.tk"
+    cert_secret: "wildcard-mm-samerbahri-tk-tls"

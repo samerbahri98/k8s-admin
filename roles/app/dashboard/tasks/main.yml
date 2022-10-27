@@ -10,5 +10,5 @@
     chart_version: 5.11.0
     release_namespace: "{{ namespace }}"
     create_namespace: true
-    values: "{{ lookup('file', 'values.yml') | from_yaml }}"
+    values: "{{ lookup('template', 'values.yml') | from_yaml }}"
     state: "{{ state }}"
