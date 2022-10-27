@@ -57,7 +57,6 @@ controller:
     - matrix-auth:3.1.5
     - pam-auth:1.10
     - ansible:1.1
-    - ansible-tower:0.16.0
     - docker-plugin:1.2.10
     - docker-java-api:3.2.13-37.vf3411c9828b9
     - docker-workflow:521.v1a_a_dd2073b_2e
@@ -84,13 +83,12 @@ controller:
     labels: {}
     annotations:
       kubernetes.io/ingress.class: nginx
-      cert-manager.io/issuer: letsencrypt-prod
-    hostName: jenkins.k8s.samerbahri.tk
-    # resourceRootUrl: jenkins.k8s.samerbahri.tk
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hostName: "{{ hostname }}"
     tls:
       - hosts:
-          - "*.k8s.samerbahri.tk"
-        secretName: wildcard-k8s-samerbahri-tk-tls
+          - "{{ cert_hostname }}"
+        secretName: "{{ cert_secret }}"
 
   # Expose Prometheus metrics
   prometheus:
@@ -172,7 +170,7 @@ persistence:
   annotations: {}
   labels: {}
   accessMode: "ReadWriteOnce"
-  size: "5Gi"
+  size: "1Gi"
   volumes:
   mounts:
   #  - mountPath: /var/nothing

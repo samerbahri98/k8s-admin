@@ -7,3 +7,7 @@
     - app/jenkins
   vars:
     state: absent
+    namespace: jenkins
+    hostname: "jenkins.mm.samerbahri.tk"
+    cert_hostname: "*.mm.samerbahri.tk"
+    cert_secret: "wildcard-mm-samerbahri-tk-tls"

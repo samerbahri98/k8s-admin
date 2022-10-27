@@ -4,5 +4,12 @@
     name: jenkins
     repo_url: https://charts.jenkins.io
 
-- name: JENKINS | STATE
-  import_tasks: "{{ state }}.yml"
+- name: HELM | JENKINS STATE
+  kubernetes.core.helm:
+    name: jenkins
+    chart_ref: jenkins/jenkins
+    chart_version: 4.2.3
+    release_namespace: "{{ namespace }}"
+    create_namespace: true
+    values: "{{ lookup('template','jenkins.values.yml') | from_yaml }}"
+    state: "{{ state }}"

@@ -1,9 +1,0 @@
----
-- name: install jenkins
-  hosts: localhost
-  become: false
-  gather_facts: false
-  roles:
-    - app/jenkins
-  vars:
-    state: updated
