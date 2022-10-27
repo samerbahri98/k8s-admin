@@ -5,7 +5,5 @@
   import_playbook: ./cert_manager/present.yml
 - name: OpenEBS
   import_playbook: ./openebs/present.yml
-- name: Dashboard
-  import_playbook: ./app/dashboard/present.yml
 - name: pxc
   import_playbook: ./app/pxc/present.yml
