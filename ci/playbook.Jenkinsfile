@@ -7,6 +7,7 @@ pipeline {
     environment {
         KUBECONFIG=credentials('kubeconfig-admin')
         HOST_VAR=credentials('localhost.yml')
+        WORKSPACE="/ansible"
     }
     parameters {
         string(name:'INVENTORY',defaultValue:'inventory/')
