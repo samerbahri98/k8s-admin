@@ -1,4 +1,9 @@
 .git
 .github
+.aws
+.git
+.github
+.keepass
+.kube
 terraform
 ci
