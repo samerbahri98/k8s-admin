@@ -19,7 +19,7 @@ pipeline {
                 container('ansible'){
                     dir("${env.WORKSPACE}/"){
                         sh '''
-                        ln -s $HOST_VAR inventory/host_vars/localhost.yml 
+                        ln -s $HOST_VAR inventory/host_vars/localhost.yml
                         '''
                         checkout scm
                         ansiblePlaybook(

@@ -7,6 +7,10 @@ ENV LC_ALL en_US.UTF-8
 ENV TZ="Europe/Budapest"
 
 WORKDIR /ansible
-RUN chmod 777 /ansible
 COPY . .
-RUN sh scripts/install_ansible_in_docker.sh && rm -rf ./*
+RUN sh scripts/install_ansible_in_docker.sh
+
+WORKDIR /
+RUN rm -rf /
+WORKDIR /ansible
+RUN chmod 777 /ansible
