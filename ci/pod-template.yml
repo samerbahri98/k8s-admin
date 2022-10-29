@@ -4,6 +4,7 @@ spec:
     - name: ansible
       image: ghcr.io/samerbahri98/k8s-admin-ansible:main
       alwaysPullImage: true
+      workingDir: "/ansible"
       privileged: true
       ttyEnabled: true
       dnsPolicy: Default
