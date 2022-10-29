@@ -7,7 +7,6 @@ pipeline {
     environment {
         KUBECONFIG=credentials('kubeconfig-admin')
         HOST_VAR=credentials('localhost.yml')
-        WORKSPACE="/ansible"
     }
     parameters {
         string(name:'INVENTORY',defaultValue:'inventory/')
@@ -17,29 +16,27 @@ pipeline {
         stage('checkout'){
             steps {
                 container('ansible'){
-                    dir("${env.WORKSPACE}/"){
-                        sh '''
-                        ln -s $HOST_VAR inventory/host_vars/localhost.yml
-                        '''
-                        checkout scm
-                        ansiblePlaybook(
-                            playbook: 'playbooks/misc/keepass_pull.yml',
-                            inventory: 'inventory/',
-                            credentialsId: 'GitHub-SSH',
-                            vaultCredentialsId: 'ansible-vault',
-                            colorized: true,
-                        )
-                        ansiblePlaybook(
-                            playbook: "${params.PLAYBOOK}",
-                            inventory: "${params.INVENTORY}",
-                            credentialsId: 'GitHub-SSH',
-                            vaultCredentialsId: 'ansible-vault',
-                            colorized: true,
-                        )
-                        sh '''
-                        echo "end"
-                        '''
-                    }
+                    sh '''
+                    ln -s $HOST_VAR inventory/host_vars/localhost.yml
+                    '''
+                    checkout scm
+                    ansiblePlaybook(
+                        playbook: 'playbooks/misc/keepass_pull.yml',
+                        inventory: 'inventory/',
+                        credentialsId: 'GitHub-SSH',
+                        vaultCredentialsId: 'ansible-vault',
+                        colorized: true,
+                    )
+                    ansiblePlaybook(
+                        playbook: "${params.PLAYBOOK}",
+                        inventory: "${params.INVENTORY}",
+                        credentialsId: 'GitHub-SSH',
+                        vaultCredentialsId: 'ansible-vault',
+                        colorized: true,
+                    )
+                    sh '''
+                    echo "end"
+                    '''
                 }
             }
         }
