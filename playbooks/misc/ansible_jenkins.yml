@@ -9,7 +9,7 @@
       "{{ lookup('viczem.keepass.keepass','Jenkins/playbook','url') }}"
     jenkins_url:
       "{{ lookup('viczem.keepass.keepass','Jenkins/ROOT','url') }}"
-    playbook: playbooks/app/percona/mysql.yml
+    playbook: playbooks/misc/keepass_pull.yml
     inventory: inventory/
     username:
       "{{ lookup('viczem.keepass.keepass','Jenkins/ROOT','username') }}"
