@@ -1,0 +1,12 @@
+---
+- name: ADMINER | ENSURE PRESENT
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - app/adminer
+  vars:
+    state: present
+    hostname: "adminer.mm.samerbahri.tk"
+    cert_hostname: "*.mm.samerbahri.tk"
+    cert_secret: "wildcard-mm-samerbahri-tk-tls"

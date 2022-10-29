@@ -30,6 +30,7 @@
     - name: JENKINS | RUN PLAYBOOK
       uri:
         url: "{{ jenkins_playbook_url }}{{ token }}"
+        return_content: true
         method: POST
         body:
           INVENTORY: "{{ inventory }}"
@@ -44,3 +45,8 @@
           Cookie: "{{ jenkins_crumb.set_cookie }}"
         status_code:
           - 201
+      register: jenkins_playbook
+    - name: LOG | JENKINS CONSOLE URL
+      ansible.builtin.debug:
+        msg:
+          "{{ jenkins_url }}/job/Ansible/job/Playbook/"

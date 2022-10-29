@@ -1,5 +1,5 @@
 ---
-hostname: "dashboard.k8s.samerbahri.tk"
+namespace: adminer
+hostname: "adminer.k8s.samerbahri.tk"
 cert_hostname: "*.k8s.samerbahri.tk"
 cert_secret: "wildcard-k8s-samerbahri-tk-tls"
-namespace: dashboard

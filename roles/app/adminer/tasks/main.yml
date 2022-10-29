@@ -1,0 +1,95 @@
+---
+- name: NAMESPACE | PRESENT
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: namespace
+    name: "{{ namespace }}"
+    state: "{{ state }}"
+  when:
+    - state == "present"
+- name: DEPLOYMENT | PRESENT
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: adminer
+      spec:
+        selector:
+          matchLabels:
+            app: adminer
+        template:
+          metadata:
+            labels:
+              app: adminer
+          spec:
+            containers:
+              - name: adminer
+                image: adminer:standalone
+                resources:
+                  limits:
+                    memory: "128Mi"
+                    cpu: "20m"
+                ports:
+                  - containerPort: 8080
+  when:
+    - state == "present"
+- name: SERVICE | PRESENT
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: adminer
+      spec:
+        selector:
+          app: adminer
+        ports:
+          - name: http
+            port: 8080
+            targetPort: 8080
+            protocol: TCP
+  when:
+    - state == "present"
+- name: INGRESS | PRESENT
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: adminer
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+      spec:
+        tls:
+          - hosts:
+              - "{{ cert_hostname }}"
+            secretName: "{{ cert_secret }}"
+        rules:
+          - host: "{{ hostname }}"
+            http:
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: adminer
+                    port:
+                      number: 8080
+  when:
+    - state == "present"
+- name: NAMESPACE | ABSENT
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: namespace
+    name: "{{ namespace }}"
+    state: "{{ state }}"
+  when:
+    - state == "absent"

@@ -1,0 +1,9 @@
+---
+- name: ADMINER | ENSURE PRESENT
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - app/adminer
+  vars:
+    state: absent
