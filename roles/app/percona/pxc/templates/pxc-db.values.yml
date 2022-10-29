@@ -5,12 +5,12 @@ pxc:
   resources:
     requests:
       memory: 128Mi
-      cpu: 50m
+      cpu: 150m
   persistence:
     enabled: false
     storageClass: "openebs-hostpath"
     accessMode: ReadWriteOnce
-    size: 1Gi
+    size: 2Gi
 
 haproxy:
   enabled: true
@@ -18,7 +18,7 @@ haproxy:
   resources:
     requests:
       memory: 128M
-      cpu: 50m
+      cpu: 150m
 
 logcollector:
   resources:

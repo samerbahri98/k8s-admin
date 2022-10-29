@@ -5,6 +5,8 @@ serviceAccount:
   annotations: {}
   labels: {}
   imagePullSecrets: []
+image:
+  tag: 19.0.3-legacy
 command: []
 args: []
 extraEnv: |
@@ -27,7 +29,7 @@ extraEnv: |
   - name: PROXY_ADDRESS_FORWARDING
     value: "true"
   - name: JDBC_PARAMS
-    value: "connectTimeout=30000"
+    value: "connectTimeout=30000&useSSL=false&allowPublicKeyRetrieval=true"
 extraEnvFrom: |
   - secretRef:
       name: 'keycloak-creds'
