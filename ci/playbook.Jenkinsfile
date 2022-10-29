@@ -18,6 +18,7 @@ pipeline {
                 container('ansible'){
                     sh '''
                     ln -s $HOST_VAR inventory/host_vars/localhost.yml
+                    pwd
                     '''
                     checkout scm
                     ansiblePlaybook(
