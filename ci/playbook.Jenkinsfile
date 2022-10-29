@@ -20,6 +20,7 @@ pipeline {
                     sh '''
                     ln -s $HOST_VAR inventory/host_vars/localhost.yml
                     pwd
+                    echo $USER
                     '''
                     checkout scm
                     ansiblePlaybook(
