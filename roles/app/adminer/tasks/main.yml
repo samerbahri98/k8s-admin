@@ -47,12 +47,13 @@
         name: adminer
       spec:
         selector:
-          app: adminer
+          app.kubernetes.io/instance: adminer
         ports:
           - name: http
             port: 8080
             targetPort: 8080
             protocol: TCP
+        type: ClusterIP
   when:
     - state == "present"
 - name: INGRESS | PRESENT
