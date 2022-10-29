@@ -13,4 +13,3 @@ RUN sh scripts/install_ansible_in_docker.sh
 WORKDIR /
 RUN rm -rf /ansible
 WORKDIR /ansible
-RUN chmod 777 /ansible
