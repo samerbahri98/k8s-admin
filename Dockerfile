@@ -10,6 +10,5 @@ COPY . .
 RUN sh scripts/install_ansible_in_docker.sh
 WORKDIR /
 RUN rm -rf /ansible
-USER root
 ENV HOME=/ansible
 WORKDIR /ansible
