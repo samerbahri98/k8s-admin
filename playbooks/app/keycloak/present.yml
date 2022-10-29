@@ -4,13 +4,16 @@
   become: false
   gather_facts: false
   roles:
-    - resource/postgres/db
+    - resource/mysql/db
     - app/keycloak
   vars:
     state: present
     namespace: adminer
     db_name: keycloak
     db_host:
-      "{{ lookup('viczem.keepass.keepass','Postgres/ROOT','url') }}"
+      "{{ lookup('viczem.keepass.keepass','MySQL/ROOT','url') }}"
     db_password:
-      "{{ lookup('viczem.keepass.keepass','Postgres/Keycloak','password') }}"
+      "{{ lookup('viczem.keepass.keepass','MySQL/Keycloak','password') }}"
+    hostname: "keycloak.mm.samerbahri.tk"
+    cert_hostname: "*.mm.samerbahri.tk"
+    cert_secret: "wildcard-mm-samerbahri-tk-tls"

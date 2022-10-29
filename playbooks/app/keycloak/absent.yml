@@ -5,7 +5,7 @@
   gather_facts: false
   roles:
     - app/keycloak
-    - resource/postgres/db
+    - resource/mysql/db
   vars:
     state: absent
     db_name: keycloak

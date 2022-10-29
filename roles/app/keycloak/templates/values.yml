@@ -9,7 +9,7 @@ command: []
 args: []
 extraEnv: |
   - name: DB_VENDOR
-    value: postgres
+    value: mysql
   - name: DB_ADDR
     value: {{ db_host }}
   - name: DB_PORT
@@ -29,7 +29,7 @@ extraEnvFrom: |
       name: 'keycloak-creds'
 resources:
   requests:
-    cpu: "250m"
+    cpu: "50m"
     memory: "512Mi"
   limits:
     cpu: "500m"
@@ -58,30 +58,32 @@ ingress:
   servicePort: http
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   labels: {}
   rules:
-    - host: 'keycloak.k8s.samerbahri.tk'
+    - host: "{{ hostname }}"
       paths:
         - path: /
           pathType: Prefix
   tls:
     - hosts:
-        - "*.k8s.samerbahri.tk"
-      secretName: wildcard-k8s-samerbahri-tk-tls
+        - "{{ cert_hostname }}"
+      secretName: "{{ cert_secret }}"
   console:
     enabled: true
     # The name of Ingress Class associated with the console ingress only
     ingressClassName: "nginx"
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
     rules:
-      - host: 'keycloak.k8s.samerbahri.tk'
+      - host: "{{ hostname }}"
         paths:
           - path: /auth/admin/
             pathType: Prefix
     tls:
       - hosts:
-          - "*.k8s.samerbahri.tk"
-        secretName: wildcard-k8s-samerbahri-tk-tls
+          - "{{ cert_hostname }}"
+        secretName: "{{ cert_secret }}"
 postgresql:
   enabled: false
