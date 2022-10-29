@@ -18,8 +18,23 @@
     login_user:
       "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'username') }}"
     password: "{{ db_password }}"
+    append_privs: true
     name: "{{ db_name }}"
     host: "%"
+    state: "{{ state }}"
+    priv:
+      "{{ db_name }}.*:ALL"
+- name: MySQL | LOCAL USER
+  community.mysql.mysql_user:
+    login_host: "{{ db_host }}"
+    login_password:
+      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'password') }}"
+    login_user:
+      "{{ lookup('viczem.keepass.keepass', 'MySQL/ROOT', 'username') }}"
+    password: "{{ db_password }}"
+    append_privs: true
+    name: "{{ db_name }}"
+    host: "localhost"
     state: "{{ state }}"
     priv:
       "{{ db_name }}.*:ALL"
