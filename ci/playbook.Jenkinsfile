@@ -8,6 +8,7 @@ pipeline {
         KUBECONFIG=credentials('kubeconfig-admin')
         HOST_VAR=credentials('localhost.yml')
         WORKSPACE="/ansible"
+        keepass_dbx="/ansible/workspace/Ansible/Playbook/.keepass"
     }
     parameters {
         string(name:'INVENTORY',defaultValue:'inventory/')
@@ -27,6 +28,7 @@ pipeline {
                         credentialsId: 'GitHub-SSH',
                         vaultCredentialsId: 'ansible-vault',
                         colorized: true,
+                        extraVars: [[key:'keepass_dbx',value:env.keepass_dbx]]
                     )
                     ansiblePlaybook(
                         playbook: "${params.PLAYBOOK}",
@@ -34,6 +36,7 @@ pipeline {
                         credentialsId: 'GitHub-SSH',
                         vaultCredentialsId: 'ansible-vault',
                         colorized: true,
+                        extraVars: [[key:'keepass_dbx',value:env.keepass_dbx]]
                     )
                     sh '''
                     echo "end"
