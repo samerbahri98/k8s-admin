@@ -28,7 +28,9 @@ pipeline {
                         credentialsId: 'GitHub-SSH',
                         vaultCredentialsId: 'ansible-vault',
                         colorized: true,
-                        extraVars: [[key:'keepass_dbx',value:env.keepass_dbx]]
+                        extraVars{
+                            extraVar("keepass_dbx",env.keepass_dbx,true)
+                        }
                     )
                     ansiblePlaybook(
                         playbook: "${params.PLAYBOOK}",
@@ -36,7 +38,9 @@ pipeline {
                         credentialsId: 'GitHub-SSH',
                         vaultCredentialsId: 'ansible-vault',
                         colorized: true,
-                        extraVars: [[key:'keepass_dbx',value:env.keepass_dbx]]
+                        extraVars{
+                            extraVar("keepass_dbx",env.keepass_dbx,true)
+                        }
                     )
                     sh '''
                     echo "end"
