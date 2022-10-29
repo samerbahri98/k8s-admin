@@ -13,7 +13,9 @@ extraEnv: |
   - name: DB_ADDR
     value: {{ db_host }}
   - name: DB_PORT
-    value: "5432"
+    value: "3306"
+  - name: MYSQL_PORT
+    value: "3306"
   - name: DB_DATABASE
     value: {{ db_name }}
   - name: KC_PROXY
