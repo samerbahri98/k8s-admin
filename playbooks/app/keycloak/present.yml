@@ -8,7 +8,6 @@
     - app/keycloak
   vars:
     state: present
-    namespace: adminer
     db_name: keycloak
     db_host:
       "{{ lookup('viczem.keepass.keepass','MySQL/ROOT','url') }}"

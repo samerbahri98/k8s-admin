@@ -1,7 +1,7 @@
 ---
 finalizers:
 pxc:
-  size: 0
+  size: 1
   resources:
     requests:
       memory: 128Mi
@@ -14,7 +14,7 @@ pxc:
 
 haproxy:
   enabled: true
-  size: 0
+  size: 1
   resources:
     requests:
       memory: 128M
