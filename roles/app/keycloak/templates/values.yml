@@ -26,6 +26,8 @@ extraEnv: |
     value: "true"
   - name: PROXY_ADDRESS_FORWARDING
     value: "true"
+  - name: JDBC_PARAMS
+    value: "connectTimeout=30000"
 extraEnvFrom: |
   - secretRef:
       name: 'keycloak-creds'
