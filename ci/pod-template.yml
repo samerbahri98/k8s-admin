@@ -8,9 +8,6 @@ spec:
       privileged: true
       ttyEnabled: true
       dnsPolicy: Default
-      env:
-        - name: "JENKINS_AGENT_WORKDIR"
-          value: "/ansible"
       command:
         - tail
         - -f

@@ -7,8 +7,7 @@ pipeline {
     environment {
         KUBECONFIG=credentials('kubeconfig-admin')
         HOST_VAR=credentials('localhost.yml')
-        WORKSPACE="/ansible"
-        keepass_dbx="/ansible/workspace/Ansible/Playbook/.keepass/k8s.kdbx"
+        keepass_dbx="/home/jenkins/agent/workspace/Ansible/Playbook/.keepass/k8s.kdbx"
     }
     parameters {
         string(name:'INVENTORY',defaultValue:'inventory/')
