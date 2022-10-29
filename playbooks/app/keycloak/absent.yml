@@ -8,6 +8,7 @@
     - resource/mysql/db
   vars:
     state: absent
+    namespace: adminer
     db_name: keycloak
     db_host:
       "{{ lookup('viczem.keepass.keepass','Postgres/ROOT','url') }}"
