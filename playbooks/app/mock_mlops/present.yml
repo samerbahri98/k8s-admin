@@ -1,0 +1,17 @@
+---
+- name: MOCK MLOPS | ENSURE PRESENT
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - resource/mysql/db
+  vars:
+    state: present
+    db_name: mock_mlops
+    db_host:
+      "{{ lookup('viczem.keepass.keepass','MySQL/ROOT','url') }}"
+    db_password:
+      "{{ lookup('viczem.keepass.keepass','MySQL/mock_mlops','password') }}"
+    hostname: "mock_mlops.mm.samerbahri.tk"
+    cert_hostname: "*.mm.samerbahri.tk"
+    cert_secret: "wildcard-mm-samerbahri-tk-tls"
