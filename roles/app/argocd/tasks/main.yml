@@ -1,0 +1,106 @@
+---
+- name: NAMESPACE | PRESENT
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: namespace
+    name: "{{ namespace }}"
+    state: "{{ state }}"
+  when:
+    - state == "present"
+- name: MANIFEST | DOWNLOAD
+  ansible.builtin.get_url:
+    url: "{{ manifest_url }}"
+    dest: /tmp/argocd.manifest.yaml
+    mode: '0664'
+- name: MANIFEST | APPLY
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    src: /tmp/argocd.manifest.yaml
+- name: CONFIGMAP | APPLY
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    src: configmap.yaml
+- name: SCALE | 0
+  kubernetes.core.k8s_scale:
+    api_version: v1
+    kind: Deployment
+    name: argocd-server
+    namespace: "{{ namespace }}"
+    replicas: 0
+    wait_timeout: 60
+  when:
+    - state == "present"
+- name: SCALE | 1
+  kubernetes.core.k8s_scale:
+    api_version: v1
+    kind: Deployment
+    name: argocd-server
+    namespace: "{{ namespace }}"
+    replicas: 1
+    wait_timeout: 60
+  when:
+    - state == "present"
+- name: INGRESS | STATE
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+        labels:
+          app.kubernetes.io/name: argocd-server
+          app.kubernetes.io/component: server
+          app.kubernetes.io/part-of: argocd
+        name: argocd-server
+      spec:
+        ingressClassName: nginx
+        rules:
+          - host: "{{ hostname }}"
+            http:
+              paths:
+                - backend:
+                    service:
+                      name: argocd-server
+                      port:
+                        name: http
+                  path: /
+                  pathType: Prefix
+        tls:
+          - hosts:
+              - "{{ cert_hostname }}"
+            secretName: "{{ cert_secret }}"
+- name: INGRESS | GRPC STATE
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: argocd-server-grpc
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+      spec:
+        ingressClassName: nginx
+        rules:
+          - host: "grpc-{{ hostname }}"
+            http:
+              paths:
+                - path: /
+                  pathType: Prefix
+                  backend:
+                    service:
+                      name: argocd-server
+                      port:
+                        name: https
+        tls:
+          - hosts:
+              - "{{ cert_hostname }}"
+            secretName: "{{ cert_secret }}"

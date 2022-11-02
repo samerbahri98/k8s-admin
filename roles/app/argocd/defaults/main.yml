@@ -1,0 +1,7 @@
+---
+namespace: argocd
+hostname: "argocd.k8s.samerbahri.tk"
+cert_hostname: "*.k8s.samerbahri.tk"
+cert_secret: argocd-secret
+manifest_url:
+  https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml

@@ -1,0 +1,76 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cmd-params-cm
+  labels:
+    app.kubernetes.io/name: argocd-cmd-params-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  repo.server: "argocd-repo-server:8081"
+  dex.server: "http://argocd-dex-server:5556"
+  redis.server: "argocd-redis:6379"
+  redis.compression: none
+  redis.db:
+  otlp.address:
+  application.namespaces: ns1, ns2, ns3
+  controller.repo.server.timeout.seconds: "60"
+  controller.repo.server.plaintext: "false"
+  controller.repo.server.strict.tls: "false"
+  controller.status.processors: "20"
+  controller.operation.processors: "10"
+  controller.log.format: "text"
+  controller.log.level: "info"
+  controller.metrics.cache.expiration: "24h0m0s"
+  controller.self.heal.timeout.seconds: "5"
+  controller.app.state.cache.expiration: "1h0m0s"
+  controller.resource.health.persist: "true"
+  controller.default.cache.expiration: "24h0m0s"
+  server.insecure: "true"
+  server.basehref: "/"
+  server.rootpath: ""
+  server.staticassets: "/shared/app"
+  server.log.format: "text"
+  server.log.level: "info"
+  server.repo.server.timeout.seconds: "60"
+  server.repo.server.plaintext: "false"
+  server.repo.server.strict.tls: "false"
+  server.dex.server.plaintext: "false"
+  server.dex.server.strict.tls: "false"
+  server.disable.auth: "false"
+  server.enable.gzip: "false"
+  server.x.frame.options: "sameorigin"
+  server.tls.minversion: "1.2"
+  server.tls.maxversion: "1.3"
+  server.tls.ciphers:
+    TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_RSA_WITH_AES_256_GCM_SHA384
+  server.connection.status.cache.expiration: "1h0m0s"
+  server.oidc.cache.expiration: "3m0s"
+  server.login.attempts.expiration: "24h0m0s"
+  server.app.state.cache.expiration: "1h0m0s"
+  server.default.cache.expiration: "24h0m0s"
+  reposerver.log.format: "text"
+  reposerver.log.level: "info"
+  reposerver.parallelism.limit: "1"
+  reposerver.disable.tls: "false"
+  reposerver.tls.minversion: "1.2"
+  reposerver.tls.maxversion: "1.3"
+  reposerver.tls.ciphers:
+    TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_RSA_WITH_AES_256_GCM_SHA384
+  reposerver.repo.cache.expiration: "24h0m0s"
+  reposerver.default.cache.expiration: "24h0m0s"
+  reposerver.max.combined.directory.manifests.size: '10M'
+  reposerver.plugin.tar.exclusions: ""
+  reposerver.allow.oob.symlinks: "false"
+  reposerver.streamed.manifest.max.tar.size: "100M"
+  reposerver.streamed.manifest.max.extracted.size: "1G"
+  reposerver.enable.git.submodule: "true"
+  dexserver.disable.tls: "false"
+  applicationsetcontroller.enable.leader.election: "false"
+  applicationsetcontroller.namespace: ""
+  applicationsetcontroller.policy: "sync"
+  applicationsetcontroller.debug: "false"
+  applicationsetcontroller.log.format: "text"
+  applicationsetcontroller.log.level: "info"
+  applicationsetcontroller.dryrun: "false"
+  applicationsetcontroller.enable.git.submodule: "true"

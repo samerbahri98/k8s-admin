@@ -1,0 +1,13 @@
+---
+- name: ARGOCD | ENSURE ABSENT
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - app/argocd
+  vars:
+    state: absent
+    namespace: jenkins
+    hostname: "argocd.mm.samerbahri.tk"
+    cert_hostname: "*.mm.samerbahri.tk"
+    cert_secret: "wildcard-mm-samerbahri-tk-tls"
