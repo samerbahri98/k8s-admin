@@ -38,30 +38,28 @@ controller:
       proxyCompatability: true
   agentListenerServiceType: "ClusterIP"
   installPlugins:
-    - kubernetes:3706.vdfb_d599579f3
-    - workflow-aggregator:590.v6a_d052e5a_a_b_5
-    - git:4.11.5
-    - configuration-as-code:1512.vb_79d418d5fc8
-    - cloudbees-folder:6.758.vfd75d09eea_a_1
-    - antisamy-markup-formatter:2.7
-    - build-timeout:1.24
-    - credentials-binding:523.vd859a_4b_122e6
-    - timestamper:1.20
-    - ws-cleanup:0.43
-    - ant:481.v7b_09e538fcca
-    - workflow-aggregator:590.v6a_d052e5a_a_b_5
-    - github-branch-source:1695.v88de84e9f6b_9
-    - pipeline-github-lib:38.v445716ea_edda_
-    - pipeline-stage-view:2.24
-    - ssh-slaves:2.846.v1b_70190624f5
-    - matrix-auth:3.1.5
-    - pam-auth:1.10
-    - ansible:1.1
-    - docker-plugin:1.2.10
-    - docker-java-api:3.2.13-37.vf3411c9828b9
-    - docker-workflow:521.v1a_a_dd2073b_2e
-    - http_request:1.16
-
+    - kubernetes
+    - workflow-aggregator
+    - git
+    - configuration-as-code
+    - cloudbees-folder
+    - antisamy-markup-formatter
+    - build-timeout
+    - credentials-binding
+    - timestamper
+    - ws-cleanup
+    - github-branch-source
+    - pipeline-github-lib
+    - pipeline-stage-view
+    - ssh-slaves
+    - matrix-auth
+    - pam-auth
+    - ansible
+    - docker-plugin
+    - docker-java-api
+    - docker-workflow
+    - http_request
+    - ssh-agent
   installLatestPlugins: true
   installLatestSpecifiedPlugins: false
   overwritePluginsFromImage: true

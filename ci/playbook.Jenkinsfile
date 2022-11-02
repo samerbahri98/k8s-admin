@@ -24,7 +24,7 @@ pipeline {
                     ansiblePlaybook(
                         playbook: 'playbooks/misc/keepass_pull.yml',
                         inventory: 'inventory/',
-                        credentialsId: 'GitHub-SSH',
+                        credentialsId: 'GITHUB-SSH',
                         vaultCredentialsId: 'ansible-vault',
                         colorized: true,
                         extraVars: [
@@ -34,7 +34,7 @@ pipeline {
                     ansiblePlaybook(
                         playbook: "${params.PLAYBOOK}",
                         inventory: "${params.INVENTORY}",
-                        credentialsId: 'GitHub-SSH',
+                        credentialsId: 'GITHUB-SSH',
                         vaultCredentialsId: 'ansible-vault',
                         colorized: true,
                         extraVars: [
