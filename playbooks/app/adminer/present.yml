@@ -7,6 +7,7 @@
     - app/adminer
   vars:
     state: present
+    namespace: dashboard
     hostname: "adminer.mm.samerbahri.tk"
     cert_hostname: "*.mm.samerbahri.tk"
     cert_secret: "wildcard-mm-samerbahri-tk-tls"
