@@ -7,7 +7,6 @@
     - app/argocd
   vars:
     state: present
-    namespace: jenkins
     hostname: "argocd.mm.samerbahri.tk"
     cert_hostname: "*.mm.samerbahri.tk"
     cert_secret: "wildcard-mm-samerbahri-tk-tls"
