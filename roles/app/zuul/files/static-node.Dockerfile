@@ -2,9 +2,9 @@ FROM ubuntu:20.04
 
 RUN apt-get update \
     && DEBIAN_FRONTEND="noninteractive" apt-get -y install \
-        git \
-        openssh-server \
-        rsync \
+        git=1:2.25.1-1ubuntu3.6 \
+        openssh-server=1:8.9p1-3 \
+        rsync=3.1.3-8ubuntu0.4 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN set -e ; \
