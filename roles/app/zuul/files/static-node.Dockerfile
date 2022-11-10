@@ -1,10 +1,16 @@
 FROM ubuntu:20.04
 
+LABEL maintainer="samer.bahri@edu.bme.hu"
+LABEL version="0.1"
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV TZ="Europe/Budapest"
+
 RUN apt-get update \
     && DEBIAN_FRONTEND="noninteractive" apt-get -y install \
         --no-install-recommends \
         git=1:2.25.1-1ubuntu3.6 \
-        openssh-server=1:8.2p1-4ubuntu0.2 \
+        openssh-server=1:8.2p1-4 \
         rsync=3.1.3-8ubuntu0.4 \
     && rm -rf /var/lib/apt/lists/*
 
