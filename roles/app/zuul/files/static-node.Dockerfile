@@ -4,7 +4,7 @@ RUN apt-get update \
     && DEBIAN_FRONTEND="noninteractive" apt-get -y install \
         --no-install-recommends \
         git=1:2.25.1-1ubuntu3.6 \
-        openssh-server=1:8.9p1-3 \
+        openssh-server=1:8.2p1-4ubuntu0.2 \
         rsync=3.1.3-8ubuntu0.4 \
     && rm -rf /var/lib/apt/lists/*
 
