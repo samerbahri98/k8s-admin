@@ -1,0 +1,10 @@
+---
+- name: ZUUL | ENSURE PRESENT
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - app/zuul
+  vars:
+    state: absent
+    namespace: zuul

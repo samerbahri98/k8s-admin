@@ -1,0 +1,74 @@
+---
+base_git_url:
+  https://opendev.org/zuul/zuul-operator/raw/branch/master/deploy
+manifests:
+  - name: zuul-ci_v1alpha2_zuul_crd.yaml
+    url:
+      "{{ base_git_url }}/crds/zuul-ci_v1alpha2_zuul_crd.yaml"
+  - name: rbac.yaml
+    url:
+      "{{ base_git_url }}/rbac.yaml"
+  - name: operator.yaml
+    url:
+      "{{ base_git_url }}/operator.yaml"
+static_node:
+  image: ghcr.io/samerbahri98/k8s-admin-zst:main
+dburi: "mysql://{{ db_name }}:{{ db_password }}@{{ db_host }}/{{ db_name }}"
+secrets:
+  - name: pxc
+    data:
+      dburi: "{{ dburi }}"
+  - name: github-secrets
+    data:
+      app_key:
+        "{{ lookup('viczem.keepass.keepass','Jenkins/GitHub-PAT',
+        'password') }}"
+      sshkey:
+        "{{ lookup('file',lookup('viczem.keepass.keepass',
+        'Jenkins/GitHub-PAT','attachments', 'id_rsa_jenkins')) }}"
+  - name: zuul-yaml-conf
+    data:
+      main.yaml: |
+        - tenant:
+            name: local
+            source:
+              opendev.org:
+                config-projects:
+                  - zuul/zuul-base-jobs
+                untrusted-projects:
+                  - zuul/zuul-jobs
+  - name: nodepool-kube-config
+    data:
+      kube.config: "{{ _kube_config.stdout }}"
+  - name: nodepool-yaml-conf
+    data:
+      nodepool.yaml: |
+        labels:
+          - name: pod-fedora-34
+            min-ready: 1
+          - name: ubuntu-focal
+            min-ready: 1
+        providers:
+          - name: kube-cluster
+            driver: kubernetes
+            context: {{ _kube_context }}
+            max-pods: 15
+            pools:
+            - name: default
+              labels:
+                - name: pod-fedora-34
+                  type: pod
+                  image: docker.io/fedora:34
+                  python-path: /bin/python3
+          - name: static-vms
+            driver: static
+            pools:
+              - name: main
+                nodes:
+                  - name: node.default
+                    labels: ubuntu-focal
+                    host-key:
+                      "{{ lookup('file',lookup('viczem.keepass.keepass',
+                      'Jenkins/GitHub-PAT','attachments', 'id_rsa_jenkins')) }}"
+                    python-path: /usr/bin/python3
+                    username: root

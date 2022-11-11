@@ -1,0 +1,54 @@
+---
+- name: Run static node
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition:
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: node
+        labels:
+          app: static-node
+      spec:
+        containers:
+          - name: node
+            image: "{{ static_node.image }}"
+            imagePullPolicy: Always
+            ports:
+              - name: ssh
+                containerPort: 22
+                protocol: TCP
+              - name: zuul
+                containerPort: 19885
+                protocol: TCP
+            volumeMounts:
+              - name: authorized-keys
+                mountPath: /root/.ssh
+                readOnly: true
+        volumes:
+          - name: authorized-keys
+            secret:
+              secretName: static-node-authorized-keys
+              defaultMode: 0600
+- name: Create static node service
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: node
+      spec:
+        selector:
+          app: static-node
+        ports:
+          - name: ssh
+            port: 22
+            targetPort: 22
+            protocol: TCP
+          - name: zuul
+            port: 19885
+            targetPort: 19885
+            protocol: TCP

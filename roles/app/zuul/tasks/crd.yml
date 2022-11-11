@@ -1,0 +1,22 @@
+---
+# - name: CRD MANIFEST | DOWNLOAD
+#   ansible.builtin.get_url:
+#     url: "{{ item.url }}"
+#     dest: /tmp/{{ item.name }}
+#     mode: "0664"
+#   loop: "{{ manifests }}"
+- name: ZUUL | CRD
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    template: crd.yaml
+- name: ZUUL | RBAC
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    template: rbac.yaml
+- name: ZUUL | OPERATOR
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    template: operator.yaml

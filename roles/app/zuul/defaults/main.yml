@@ -1,0 +1,6 @@
+---
+hostname: zuul.k8s.samerbahri.tk
+cert_hostname: "*.k8s.samerbahri.tk"
+cert_secret: wildcard-k8s-samerbahri-tk-tls
+namespace: zuul
+context: vke-df10213a-c218-4f3a-8008-1aa4d58631b2

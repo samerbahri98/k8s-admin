@@ -1,0 +1,26 @@
+---
+- name: NAMESPACE | PRESENT
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: namespace
+    name: "{{ namespace }}"
+    state: "{{ state }}"
+  when:
+    - state == "present"
+- name: ZUUL | CRD
+  import_tasks: crd.yml
+- name: ZUUL | SECRETS
+  import_tasks: secrets.yml
+- name: ZUUL | NODES
+  import_tasks: static_nodes.yml
+- name: ZUUL | ROLLOUT
+  command:
+    "timeout 8m kubectl rollout status
+    deployment/zuul-operator --namespace zuul"
+  when:
+    - state == "present"
+- name: ZUUL | STATE
+  kubernetes.core.k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition:

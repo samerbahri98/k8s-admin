@@ -1,0 +1,16 @@
+---
+- name: ZUUL | ENSURE PRESENT
+  hosts: localhost
+  become: false
+  gather_facts: false
+  roles:
+    - resource/mysql/db
+    - app/zuul
+  vars:
+    state: present
+    namespace: zuul
+    db_name: zuul
+    db_host:
+      "{{ lookup('viczem.keepass.keepass','MySQL/ROOT','url') }}"
+    db_password:
+      "{{ lookup('viczem.keepass.keepass','MySQL/Zuul','password') }}"

@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zuul-operator
+  namespace: "{{ namespace }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: zuul-operator
+  template:
+    metadata:
+      labels:
+        name: zuul-operator
+    spec:
+      serviceAccountName: zuul-operator
+      containers:
+        - name: operator
+          image: "docker.io/zuul/zuul-operator"
+          imagePullPolicy: "IfNotPresent"
