@@ -13,14 +13,18 @@ manifests:
       "{{ base_git_url }}/operator.yaml"
 static_node:
   image: ghcr.io/samerbahri98/k8s-admin-zst:main
-dburi: "mysql://{{ db_name }}:{{ db_password }}@{{ db_host }}/{{ db_name }}"
+dburi:
+  "mysql+pymysql://{{ db_name }}:{{ db_password }}@{{ db_host }}/{{ db_name }}"
 secrets:
   - name: pxc
     data:
       dburi: "{{ dburi }}"
   - name: github-secrets
     data:
-      app_key:
+      webhook_token:
+        "{{ lookup('viczem.keepass.keepass','Jenkins/GitHub-PAT',
+        'password') }}"
+      api_token:
         "{{ lookup('viczem.keepass.keepass','Jenkins/GitHub-PAT',
         'password') }}"
       sshkey:
@@ -30,9 +34,9 @@ secrets:
     data:
       main.yaml: |
         - tenant:
-            name: local
+            name: mock-mlops-application
             source:
-              opendev.org:
+              github.com:
                 config-projects:
                   - zuul/zuul-base-jobs
                 untrusted-projects:

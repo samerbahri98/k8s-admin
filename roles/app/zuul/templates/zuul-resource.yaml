@@ -6,7 +6,7 @@ metadata:
   namespace: "{{ namespace }}"
 spec:
   database:
-    allowUnsafeConfig: true
+    secretName: pxc
   executor:
     count: 1
     sshkey:

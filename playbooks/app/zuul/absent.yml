@@ -8,3 +8,8 @@
   vars:
     state: absent
     namespace: zuul
+    db_name: zuul
+    db_host:
+      "{{ lookup('viczem.keepass.keepass','MySQL/ROOT','url') }}"
+    db_password:
+      "{{ lookup('viczem.keepass.keepass','MySQL/Zuul','password') }}"

@@ -26,3 +26,4 @@ mock_modules:
 skip_list:
   - jinja[invalid]
   - fqcn-builtins
+  - risky-shell-pipe

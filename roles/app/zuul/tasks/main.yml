@@ -1,26 +1,54 @@
 ---
-- name: NAMESPACE | PRESENT
-  kubernetes.core.k8s:
-    api_version: v1
-    kind: namespace
-    name: "{{ namespace }}"
-    state: "{{ state }}"
-  when:
-    - state == "present"
-- name: ZUUL | CRD
-  import_tasks: crd.yml
-- name: ZUUL | SECRETS
-  import_tasks: secrets.yml
-- name: ZUUL | NODES
-  import_tasks: static_nodes.yml
-- name: ZUUL | ROLLOUT
-  command:
-    "timeout 8m kubectl rollout status
-    deployment/zuul-operator --namespace zuul"
-  when:
-    - state == "present"
+- name: K8S | DEFAULT STORAGE CLASS LIST
+  kubernetes.core.k8s_info:
+    api_version: storage.k8s.io/v1
+    kind: StorageClass
+  register: default_storage_class_list
+- name: DEBUG | STORAGE CLASS LIST
+  debug:
+    var: item.metadata.name
+  loop: "{{ default_storage_class_list | community.general.json_query(query) }}"
+  vars:
+    query:
+      resources[?(metadata.annotations."storageclass.kubernetes.io/is-default-class"
+      == 'true')]
 - name: ZUUL | STATE
-  kubernetes.core.k8s:
-    state: "{{ state }}"
-    namespace: "{{ namespace }}"
-    definition:
+  block:
+    - name: K8S | SET STORAGE CLASS
+      import_tasks: storage_class.yml
+    - name: NAMESPACE | PRESENT
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: namespace
+        name: "{{ namespace }}"
+        state: "{{ state }}"
+      when:
+        - state == "present"
+    - name: ZUUL | CRD
+      import_tasks: crd.yml
+      when:
+        - state == "present"
+    - name: ZUUL | SECRETS
+      import_tasks: secrets.yml
+    - name: ZUUL | NODES
+      import_tasks: static_nodes.yml
+    - name: ZUUL | ROLLOUT
+      command:
+        "timeout 8m kubectl rollout status
+        deployment/zuul-operator --namespace zuul"
+      when:
+        - state == "present"
+    - name: ZUUL | STATE
+      kubernetes.core.k8s:
+        state: "{{ state }}"
+        namespace: "{{ namespace }}"
+        template: zuul-resource.yaml
+    - name: ZUUL | CRD
+      import_tasks: crd.yml
+      when:
+        - state == "absent"
+    - name: K8S | RESET STORAGE CLASS
+      import_tasks: reset.yml
+  rescue:
+    - name: K8S | RESET STORAGE CLASS
+      import_tasks: reset.yml

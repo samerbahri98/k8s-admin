@@ -1,0 +1,28 @@
+---
+- name: K8S | UNSET DEFAULT STORAGE CLASS
+  kubernetes.core.k8s:
+    state: patched
+    api_version: storage.k8s.io/v1
+    kind: StorageClass
+    name: "{{ storage_class }}"
+    wait: true
+    definition:
+      metadata:
+        annotations:
+          storageclass.kubernetes.io/is-default-class: "false"
+- name: K8S | SET DEFAULT STORAGE CLASS
+  kubernetes.core.k8s:
+    state: patched
+    api_version: storage.k8s.io/v1
+    kind: StorageClass
+    name: "{{ item.metadata.name }}"
+    wait: true
+    definition:
+      metadata:
+        annotations:
+          storageclass.kubernetes.io/is-default-class: "true"
+  loop: "{{ default_storage_class_list | community.general.json_query(query) }}"
+  vars:
+    query:
+      resources[?(metadata.annotations."storageclass.kubernetes.io/is-default-class"
+      == 'true')]
