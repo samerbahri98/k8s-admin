@@ -2,6 +2,7 @@
 
 docker run --rm -it\
     -v "$(dirname "$SSH_AUTH_SOCK")":"$(dirname "$SSH_AUTH_SOCK")"\
+    -v /var/run/docker.sock:/var/run/docker.sock\
     -v "$PWD":/ansible \
     -v "$PWD/.aws":"/root/.aws" \
     -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" \
