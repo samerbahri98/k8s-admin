@@ -7,12 +7,12 @@ repos:
       - id: sort-simple-yaml
       - id: detect-private-key
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.28.0
+    rev: v1.29.0
     hooks:
       - id: yamllint
         args: [-c=.yamllint]
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v6.10.0
+    rev: v6.12.1
     hooks:
       - id: ansible-lint
   - repo: https://github.com/shellcheck-py/shellcheck-py
